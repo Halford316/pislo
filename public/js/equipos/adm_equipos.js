@@ -67,6 +67,7 @@ function resta(num1, num2) {
 
 }
 
+/** Modal que muestra el pago x equipo */
 function verPagos(id)
 {
     $.ajaxSetup({

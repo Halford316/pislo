@@ -119,6 +119,7 @@ class JugadorController extends Controller
 
         /* Subiendo foto */
         if(isset($data["mdl_uj_foto_jugador"])) {
+            Storage::disk('public')->delete('arbitro_jugador_fotosfotos/'.$ficha->foto);
             $data_foto_jugador = SubirArchivo($data["mdl_uj_foto_jugador"], 'jugador_fotos');
         }else {
             $data_foto_jugador = $ficha->foto;

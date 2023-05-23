@@ -334,7 +334,7 @@ return [
         ],
         [
             'text'        => 'Arbitros',
-            'url'         => '#',
+            'route'         => 'arbitros.index',
             'icon'        => 'fa fa-fw fa-user mr-2',
         ],
 
@@ -342,7 +342,7 @@ return [
 
         [
             'text' => 'Fixtures',
-            'url'  => '#',
+            'route'         => 'fixtures.index',
             'icon' => 'fa fa-fw fa-sitemap mr-2',
         ],
         [
@@ -518,6 +518,21 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/fontawesome-free-5.15.4-web/css/fontawesome.min.css',
+                ],
+            ],
+        ],
+        'Toastr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
                 ],
             ],
         ],

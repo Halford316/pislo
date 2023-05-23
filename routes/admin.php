@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\CampoController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Admin\EquipoController;
 use App\Http\Controllers\Admin\JugadorController;
+use App\Http\Controllers\Admin\ArbitroController;
+use App\Http\Controllers\Admin\FixtureController;
+use App\Http\Controllers\Admin\ExpulsionController;
 
 Route::get('', [HomeController::class, 'index'])->name('home');
 
@@ -75,5 +78,46 @@ Route::prefix('jugadores')->group(function () {
 
 });
 
+/** Arbitros */
+Route::prefix('arbitros')->group(function () {
+
+    Route::get('', [ArbitroController::class, 'index'])->name('arbitros.index');
+    Route::get('/datatable', [ArbitroController::class, 'list']);
+    Route::get('/show/{ficha}', [ArbitroController::class, 'show']);
+    Route::post('/store-process', [ArbitroController::class, 'store']);
+    Route::put('/update-process', [ArbitroController::class, 'update']);
+
+});
+
+/** Fixtures */
+Route::prefix('fixtures')->group(function () {
+
+    Route::get('', [FixtureController::class, 'index'])->name('fixtures.index');
+    Route::get('/datatable', [FixtureController::class, 'list']);
+    Route::get('/generar-fixture/{ficha}', [FixtureController::class, 'generarFixture']);
+    Route::post('/store-process', [FixtureController::class, 'store']);
+    Route::put('/update-process', [FixtureController::class, 'update']);
+
+    /** Administrar fixture */
+    Route::prefix('administrar-fixture')->group(function () {
+
+        Route::get('/{torneo}', [FixtureController::class, 'administrarFixture']);
+        Route::get('/fechas/datatable/{torneo}/{ronda}', [FixtureController::class, 'listFechas'])->name('fixtures.datatable.fechas');
+        Route::get('/show/{ficha}', [FixtureController::class, 'showEncuentro']);
+        Route::get('/showJugadoresXEquipo/{equipo}', [FixtureController::class, 'showJugadoresXEquipo']);
+        Route::put('/update-process', [FixtureController::class, 'updateEncuentro']);
+
+        /** Expulsiones */
+        Route::prefix('expulsiones')->group(function () {
+
+            Route::get('/datatable/{ficha}', [ExpulsionController::class, 'list']);
+            Route::post('/store-process', [ExpulsionController::class, 'store']);
+
+        });
+    });
+
+
+
+});
 
 ?>
