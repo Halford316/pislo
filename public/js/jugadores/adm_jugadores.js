@@ -136,6 +136,7 @@ function ajaxStoreJugador(form) {
                 $("#frmNuevoJugador")[0].reset();
                 $('#mdlNuevoJugador').modal('hide');
                 $('#tblJugadores').DataTable().ajax.reload();
+                $('#tblEquipos').DataTable().ajax.reload();
 
 
             }

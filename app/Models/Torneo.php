@@ -22,7 +22,8 @@ class Torneo extends Model
         'status',
         'activo',
         'user_id',
-        'precio'
+        'precio',
+        'fixture'
     ];
 
     public function usuarios()

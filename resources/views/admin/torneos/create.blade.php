@@ -113,7 +113,6 @@
                             <option value="">-- Seleccione --</option>
                             @foreach ($horarios as $llave=>$valor)
                             <option value="{{ $llave }}">{{ $valor }}</option>
-
                             @endforeach
                         </select>
                     </div>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Fixture;
+
 function getCampoTipos()
 {
     $array = array(
@@ -92,5 +94,12 @@ function getJugadorSexos()
     );
 
     return $array;
+}
+
+function getFechas($torneo, $ronda)
+{
+    $fechas = Fixture::where('torneo_id', $torneo)->where('fecha_nro', $ronda)->get();
+
+    return $fechas;
 }
 ?>

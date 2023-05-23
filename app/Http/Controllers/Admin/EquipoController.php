@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Equipo;
+use App\Models\Jugador;
 use App\Models\Torneo;
 use App\Models\EquipoPago;
 use Jenssegers\Date\Date;
@@ -24,7 +25,7 @@ class EquipoController extends Controller
 
     public function datatable()
     {
-        $fichas = Equipo::where('activo', '1')->get();
+        $fichas = Equipo::where('activo', '1')->orderBy('id', 'desc')->get();
 
         $json_response = [];
 
@@ -32,12 +33,13 @@ class EquipoController extends Controller
             $id = $ficha->id;
 
             $muestra_foto = Storage::url('equipo_fotos/'.$ficha->foto);
+            $nro_jugadores = $this->verTotalJugadoresXEquipo($id);
 
             $json_response[] = array(
                 "id" => $id,
                 "nombre" => $ficha->nombre,
                 "foto" => '<img src="'.$muestra_foto.'" width="50">',
-                "nro_jugadores" => '',
+                "nro_jugadores" => $nro_jugadores,
                 "jugadores_reg" => '
                         <button type="button" class="btn btn-secondary" onclick="verJugadores('.$id.')" title="Jugadores registrados">
                             <i class="fa fa-users mr-2"></i>
@@ -224,4 +226,12 @@ class EquipoController extends Controller
 
     }
 
+    /** Ver total de jugador por equipo */
+
+    public function verTotalJugadoresXEquipo($id)
+    {
+        $nro_jugadores = Jugador::where('equipo_id', $id)->count();
+
+        return $nro_jugadores;
+    }
 }
