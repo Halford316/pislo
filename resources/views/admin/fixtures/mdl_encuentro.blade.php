@@ -41,14 +41,25 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <label for="mdl_ue_partido_hora">Hora del encuentro:</label>
                                 <input type="text" name="mdl_ue_partido_hora" id="mdl_ue_partido_hora" class="form-control" value="" required />
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <label for="mdl_ue_partido_fecha">Fecha del encuentro:</label>
                                 <input type="date" name="mdl_ue_partido_fecha" id="mdl_ue_partido_fecha" class="form-control" value="" required />
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="mdl_ue_status">
+                                    Status al encuentro
+                                </label>
+                                <select name="mdl_ue_status" id="mdl_ue_status" class="form-control" required>
+                                    <option value="">-- Seleccione status --</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="finalizado">Finalizado</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -56,7 +67,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-6">
-                                <label for="mdl_ue_arbitro">
+                                <label for="mdl_ue_campo">
                                     Asignar campo al encuentro
                                 </label>
                                 <select name="mdl_ue_campo" id="mdl_ue_campo" class="form-control" required>
@@ -74,6 +85,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group pl-4 pr-4 pb-2">
+                    <span class="alert alert-warning">
+                        <i class="fa fa-exclamation-triangle mr-1" aria-hidden="true"></i>
+                        Cuando el encuentro termine cambie el estado a finalizado.
+                    </span>
                 </div>
 
                 <div class="modal-footer p-3">

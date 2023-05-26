@@ -36,6 +36,7 @@
                         <tr>
                             <th class="th-fixture">Cancha</th>
                             <th class="th-fixture">Hora</th>
+                            <th class="th-fixture">Status</th>
                             <th class="th-fixture text-center">Equipos</th>
                             <th class="th-fixture">Acciones</th>
                         </tr>
@@ -46,17 +47,25 @@
                         $fechas = getFechas($torneo, $i)
                         @endphp
                         @foreach ($fechas as $fecha)
-                        <tr >
+                        <tr>
                             <td class="td-fixture">
                                 <span id="campo_{{ $fecha->id }}">
                                     {{ ($fecha->campo_id) ? $fecha->campos->nombre : 'No hay cancha asignada' }}
                                 </span>
                             </td>
+
                             <td class="td-fixture">
                                 <span id="hora_{{ $fecha->id }}">
                                     {{ ($fecha->partido_hora) ? $fecha->partido_hora : 'No hay hora registrada' }}
                                 </span>
-                                </td>
+                            </td>
+
+                            <td class="td-fixture">
+                                <span id="status_{{ $fecha->id }}" class="text-{{ ($fecha->status=='pendiente') ? 'danger' : 'success' }}">
+                                    {{ $fecha->status }}
+                                </span>
+                            </td>
+
                             <td class="td-fixture">
                                 <div class="row">
                                     <div class="col-4 text-right">
@@ -79,6 +88,7 @@
                                     </div>
                                 </div>
                             </td class="td-fixture">
+
                             <td class="td-fixture">
                                 <div class="btn-group">
                                     <a href="javascript:registrarFixture('{{ $fecha->id }}')" class="btn btn-danger w-100">

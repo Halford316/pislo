@@ -294,6 +294,7 @@ class FixtureController extends Controller
         $ficha->arbitro_id = $data['mdl_ue_arbitro'];
         $ficha->equipo_1_goles = $data['mdl_equipo_1_goles'];
         $ficha->equipo_2_goles = $data['mdl_equipo_2_goles'];
+        $ficha->status = $data['mdl_ue_status'];
         $ficha->user_id = Auth::user()->id;
         $ficha->save();
 
@@ -305,7 +306,8 @@ class FixtureController extends Controller
                 'partido_hora' => $ficha->partido_hora,
                 'campo' => $ficha->campos->nombre,
                 'goles_local' => $ficha->equipo_1_goles,
-                'goles_visitante' => $ficha->equipo_2_goles
+                'goles_visitante' => $ficha->equipo_2_goles,
+                'estado' => $ficha->status
             ]);
         }
     }

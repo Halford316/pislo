@@ -151,6 +151,7 @@ function registrarFixture(id)
         $('#mdl_equipo_2_goles').val(data.ficha.equipo_2_goles);
         $('#mdl_ue_partido_hora').val(data.ficha.partido_hora);
         $('#mdl_ue_partido_fecha').val(data.ficha.partido_fecha);
+        $('#mdl_ue_status').val(data.ficha.status);
 
         if(data.campos) {
             $('#mdl_ue_campo').empty();
@@ -244,6 +245,16 @@ function ajaxUpdateEncuentro(form) {
             $('#hora_'+data.ficha_id).html(data.partido_hora);
             $('#goles_local_'+data.ficha_id).html(data.goles_local);
             $('#goles_visitante_'+data.ficha_id).html(data.goles_visitante);
+            $('#status_'+data.ficha_id).html(data.estado);
+
+            if (data.estado == 'finalizado') {
+                $('#status_'+data.ficha_id).addClass('text-success');
+                $('#status_'+data.ficha_id).removeClass('text-danger');
+            }else {
+                $('#status_'+data.ficha_id).addClass('text-danger');
+                $('#status_'+data.ficha_id).removeClass('text-success');
+            }
+
 
             $('#mdlEditarEncuentro').modal('hide');
 
