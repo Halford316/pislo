@@ -205,7 +205,7 @@ function registrarFixture(id)
 }
 
 
-/** Actualizando */
+/** Actualizando encuentro */
 function ajaxUpdateEncuentro(form) {
     $.ajaxSetup({
         headers: {
@@ -242,6 +242,8 @@ function ajaxUpdateEncuentro(form) {
             $('#campo_'+data.ficha_id).html(data.campo);
             $('#fecha_'+data.ficha_id).html(data.partido_fecha);
             $('#hora_'+data.ficha_id).html(data.partido_hora);
+            $('#goles_local_'+data.ficha_id).html(data.goles_local);
+            $('#goles_visitante_'+data.ficha_id).html(data.goles_visitante);
 
             $('#mdlEditarEncuentro').modal('hide');
 
@@ -269,5 +271,73 @@ function ajaxUpdateEncuentro(form) {
         }
 
     });
+
+}
+
+/** Mostrando tabla de posiciones */
+function verTablaPosiciones(id)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: flagUrl+'admin/fixtures/administrar-fixture/tabla-posiciones/generar/'+id,
+        dataType : 'json',
+        type: 'GET',
+
+        beforeSend: function()
+        {
+
+        }
+    })
+
+    .done(function(response)
+    {
+        $('#tabla-cuerpo').empty();
+
+        // Generar las filas de la tabla de posiciones con los datos recibidos
+        $.each(response, function (index, equipo) {
+            var fila = '<tr>' +
+                '<td>' + equipo.team + '</td>' +
+                '<td class="text-center">' + equipo.played + '</td>' +
+                '<td class="text-center">' + equipo.won + '</td>' +
+                '<td class="text-center">' + equipo.tie + '</td>' +
+                '<td class="text-center">' + equipo.lost + '</td>' +
+                '<td class="text-center">' + equipo.favor + '</td>' +
+                '<td class="text-center">' + equipo.against + '</td>' +
+                '<td class="text-center">' + equipo.diff + '</td>' +
+                '<td class="text-center">' + equipo.points + '</td>' +
+                '</tr>';
+
+            $('#tabla-cuerpo').append(fila);
+
+            $('#mdlTablaPosiciones').modal('show');
+        });
+
+    })
+
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        var errors = $.parseJSON(jqXHR.responseText);
+        console.log(errors);
+
+        var errorsHtml = '';
+        $.each(errors['errors'], function (index, value) {
+            errorsHtml += '<li>' + value + '</li>';
+        });
+
+        if(jqXHR.status === 401) {
+            errorsHtml = '<li>Error en la autenticación.</li>';
+        }
+
+        if(jqXHR.status === 500) {
+            errorsHtml = '<li>Hubo un error en el sistema.</li>';
+        }
+
+    });
+
 
 }

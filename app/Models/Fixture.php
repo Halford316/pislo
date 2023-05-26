@@ -20,7 +20,8 @@ class Fixture extends Model
         'partido_hora',
         'equipo_1_goles',
         'equipo_2_goles',
-        'user_id'
+        'user_id',
+        'status'
     ];
 
     public function torneos()

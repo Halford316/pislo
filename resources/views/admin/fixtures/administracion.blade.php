@@ -61,9 +61,20 @@
                                 <div class="row">
                                     <div class="col-4 text-right">
                                         {{ $fecha->locales->nombre }}
+
+                                        <span id="goles_local_{{ $fecha->id }}" class="text-warning ml-3">
+                                            {{ $fecha->equipo_1_goles }}
+                                        </span>
                                     </div>
+
                                     <div class="col-4 text-center">VS</div>
+
                                     <div class="col-4">
+
+                                        <span id="goles_visitante_{{ $fecha->id }}" class="text-warning mr-3">
+                                            {{ $fecha->equipo_2_goles }}
+                                        </span>
+
                                         {{ $fecha->visitantes->nombre }}
                                     </div>
                                 </div>

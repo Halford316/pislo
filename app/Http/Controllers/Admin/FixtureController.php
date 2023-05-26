@@ -32,31 +32,47 @@ class FixtureController extends Controller
 
         foreach($fichas as $ficha) {
             $id = $ficha->id;
+            $torneo_fixture = Fixture::where('torneo_id', $id)->count();
+            $nro_equipos_reg = EquipoPago::where('torneo_id', $id)->count();
 
-            $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-1">'.strtoupper($ficha->status).'</span>';
+            $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-2">'.strtoupper($ficha->status).'</span>';
+
+            $disabled_btn_fixture = ($ficha->nro_equipos === $nro_equipos_reg) ? '' : 'disabled';
+            $disabled_btn_admin = ($ficha->nro_equipos === $nro_equipos_reg) ? '' : 'disabled';
 
             if ($ficha->fixture == '1') {
-                $btn_fixture = '<div class="btn-group">
-                                    <a href="javascript:administrarFixture('.$id.')" class="btn btn-secondary w-100">
-                                        <i class="fa fa-edit mr-2"></i>
-                                        Administrar
-                                    </a>
-                                </div>';
+                $btn_fixture = '
+                                <button onclick="administrarFixture('.$id.')" class="btn btn-secondary w-75" '.$disabled_btn_admin.'>
+                                    <i class="fa fa-edit mr-2"></i>
+                                    Administrar
+                                </button>
+                                ';
             }else {
-                $btn_fixture = '<div class="btn-group">
-                                    <a href="javascript:generarFixture('.$id.')" class="btn btn-danger">
-                                        <i class="fa fa-sitemap mr-2"></i>
-                                        Generar fixture
-                                    </a>
-                                </div>';
+                $btn_fixture = '
+                                <button onclick="generarFixture('.$id.')" class="btn btn-danger w-75" '.$disabled_btn_fixture.'>
+                                    <i class="fa fa-sitemap mr-2"></i>
+                                    Generar fixture
+                                </button>
+                                ';
             }
+
+
+
+            $disabled_table = ($torneo_fixture > 0) ? '' : 'disabled';
+
+            $btn_tabla = '<button class="btn btn-secondary w-75" onclick="verTablaPosiciones('.$id.')" '.$disabled_table.'>
+                            <i class="fa fa-table mr-1"></i>
+                            Ver tabla
+                        </button>';
+
+
             $json_response[] = array(
                 "id" => $id,
                 "torneo" => $ficha->nombre,
                 "estado" => $muestra_status,
                 "requeridos" => $ficha->nro_equipos,
-                "equipos_reg" => '',
-                "tabla" => Date::parse($ficha->created_at)->format('d/m/Y'),
+                "equipos_reg" => $nro_equipos_reg,
+                "tabla" => $btn_tabla,
                 "acciones" => $btn_fixture
             );
         }
@@ -287,7 +303,9 @@ class FixtureController extends Controller
                 'ficha_id' => $ficha->id,
                 'partido_fecha' => $ficha->partido_fecha,
                 'partido_hora' => $ficha->partido_hora,
-                'campo' => $ficha->campos->nombre
+                'campo' => $ficha->campos->nombre,
+                'goles_local' => $ficha->equipo_1_goles,
+                'goles_visitante' => $ficha->equipo_2_goles
             ]);
         }
     }

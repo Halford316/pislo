@@ -3,9 +3,11 @@
 @section('title', 'Fixtures')
 
 @section('content_header')
-    <h1 class="float-left text-danger">
+    <h1 class="text-danger">
         Lista de Fixtures
     </h1>
+
+    <hr>
 @stop
 
 @section('content')
@@ -33,10 +35,12 @@
     <div id="orderInfo"></div>
 </div>
 
+@include('admin.fixtures.mdl_tabla_posiciones')
+
 @stop
 
 @section('css')
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/pislo.css') }}">
 @stop
 
 @section('js')
