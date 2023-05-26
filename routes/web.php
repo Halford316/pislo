@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
-Route::redirect('/', '/login', 301);
+Route::redirect('/', '/admin', 301);
 
 Route::middleware([
     'auth:sanctum',
