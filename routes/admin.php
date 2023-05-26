@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\JugadorController;
 use App\Http\Controllers\Admin\ArbitroController;
 use App\Http\Controllers\Admin\FixtureController;
 use App\Http\Controllers\Admin\ExpulsionController;
+use App\Http\Controllers\Admin\TablaPosicionController;
 
 Route::get('', [HomeController::class, 'index'])->name('home');
 
@@ -112,6 +113,13 @@ Route::prefix('fixtures')->group(function () {
 
             Route::get('/datatable/{ficha}', [ExpulsionController::class, 'list']);
             Route::post('/store-process', [ExpulsionController::class, 'store']);
+
+        });
+
+        /** Tabla de posiciones */
+        Route::prefix('tabla-posiciones')->group(function () {
+
+            Route::get('/generar/{ficha}', [TablaPosicionController::class, 'mostrarTablaPosiciones']);
 
         });
     });
