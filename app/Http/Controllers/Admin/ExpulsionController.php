@@ -28,7 +28,20 @@ class ExpulsionController extends Controller
             'jugador_id' => $data['mdl_ue_jugador']
         ]);
 
-        return response()->json(['success'=>'Data is successfully added']);
+        $nro_expulsiones = Expulsion::where('torneo_id', $data['mdl_ue_torneo_id'])->where('jugador_id', $data['mdl_ue_jugador'])->count();
+
+        $jugador = Jugador::find($data['mdl_ue_jugador']);
+
+        if ($nro_expulsiones > 2) {
+            $jugador->status = 'inactivo';
+        }else {
+            $jugador->status = 'expulsado';
+        }
+        $jugador->save();
+
+        if ($ficha) {
+            return response()->json(['success'=>'Data is successfully added']);
+        }
 
     }
 

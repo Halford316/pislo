@@ -13,7 +13,7 @@
                 <div class="modal-header" >
                     <h6 class="modal-title">
                         <i class="fa fa-edit fa-lg mr-1" aria-hidden="true"></i>
-                        Registro de encuentro
+                        Registro de encuentro - Fecha <span id="mdl_show_fecha_nro"></span>
                     </h6>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -37,6 +37,21 @@
                                 <span id="mdl_show_visitante" class="ml-4"></span>
                             </div>
                         </div>
+
+                        <div id="show_expulsados" class="hidden">
+                            <div class="d-flex flex-row small">
+                                <div class="p-2 text-center w-100">
+                                    <span id="mdl_show_expulsados_local" class="ml-4"></span>
+                                </div>
+                                <div class="p-2 text-center">
+
+                                </div>
+                                <div class="p-2 text-center w-100">
+                                    <span id="mdl_show_expulsados_visitante" class="ml-4"></span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">

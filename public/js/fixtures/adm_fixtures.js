@@ -83,7 +83,7 @@ function administrarFixture(id)
 
 }
 
-/** Mostrando modal para registrar goles, arbitros, expulsiones */
+/** Mostrando modal de encuentro para registrar goles, arbitros, expulsiones */
 function registrarFixture(id)
 {
     $.ajaxSetup({
@@ -145,6 +145,7 @@ function registrarFixture(id)
         $('#mdl_ue_fixture_id').val(data.ficha.id);
 
         $('#mdl_ue_ficha_id').val(data.ficha.id);
+        $('#mdl_show_fecha_nro').html(data.ficha.fecha_nro);
         $('#mdl_show_local').html(data.ficha.locales.nombre);
         $('#mdl_show_visitante').html(data.ficha.visitantes.nombre);
         $('#mdl_equipo_1_goles').val(data.ficha.equipo_1_goles);
@@ -195,6 +196,20 @@ function registrarFixture(id)
             $('#mdl_ue_equipo').empty();
         }
 
+        /** Pintando los expulsados */
+        if(data.expulsados_local || data.expulsados_visitante) {
+
+            $('#show_expulsados').show();
+        }else {
+            $('#show_expulsados').hide();
+        }
+
+        /* Mostrando expulsados del equipo local */
+        getExpulsadosLocal(data);
+
+        /* Mostrando expulsados del equipo visitante */
+        getExpulsadosVisitante(data);
+
     })
 
     .fail(function(jqXHR, ajaxOptions, thrownError)
@@ -203,6 +218,58 @@ function registrarFixture(id)
     });
 
     $('#mdlEditarEncuentro').modal('show');
+}
+
+/** Mostrando expulsados del equipo local */
+function getExpulsadosLocal(data)
+{
+    if(data.expulsados_local) {
+        $('#mdl_show_expulsados_local').empty();
+
+        $.each(data.expulsados_local, function(key, value) {
+
+            var jugador = value.jugadores.nombres+' '+value.jugadores.ape_paterno+' '+value.jugadores.ape_materno;
+            var fecha_expulsion = value.fixtures.fecha_nro;
+            var fecha_actual = data.ficha.fecha_nro;
+            var fecha_descanso = (fecha_expulsion + 1);
+            var fecha_descanso_2 = (fecha_expulsion + 2);
+
+            if ( (fecha_actual == fecha_descanso) || (fecha_actual == fecha_descanso_2) ) {
+                $('#mdl_show_expulsados_local').append('<i class="ico-arbitro mr-1 text-danger"></i> <span class="text-danger">'+jugador+'</span> (Fecha: '+fecha_expulsion+')<br>');
+            }
+
+        });
+
+    }else {
+        $('#mdl_show_expulsados_local').empty();
+    }
+
+}
+
+/** Mostrando expulsados del equipo visitante */
+function getExpulsadosVisitante(data)
+{
+    if(data.expulsados_visitante) {
+
+        $('#mdl_show_expulsados_visitante').empty();
+
+        $.each(data.expulsados_visitante, function(key, value) {
+
+            var jugador = value.jugadores.nombres+' '+value.jugadores.ape_paterno+' '+value.jugadores.ape_materno;
+            var fecha_expulsion = value.fixtures.fecha_nro;
+            var fecha_actual = data.ficha.fecha_nro;
+            var fecha_descanso = (fecha_expulsion + 1);
+            var fecha_descanso_2 = (fecha_expulsion + 2);
+
+            if ( (fecha_actual == fecha_descanso) || (fecha_actual == fecha_descanso_2) ) {
+                $('#mdl_show_expulsados_visitante').append('<i class="ico-arbitro mr-1 text-danger fa-lg"></i> <span class="text-danger">'+jugador+'</span> (Fecha: '+fecha_expulsion+')<br>');
+            }
+
+        });
+
+    }else {
+        $('#mdl_show_expulsados_visitante').empty();
+    }
 }
 
 

@@ -33,7 +33,7 @@
             <div class="table-responsive">
                 <table class="w-100" id="tblFechas_{{ $i }}">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th class="th-fixture">Cancha</th>
                             <th class="th-fixture">Hora</th>
                             <th class="th-fixture">Status</th>
@@ -48,25 +48,25 @@
                         @endphp
                         @foreach ($fechas as $fecha)
                         <tr>
-                            <td class="td-fixture">
+                            <td class="td-fixture text-center">
                                 <span id="campo_{{ $fecha->id }}">
-                                    {{ ($fecha->campo_id) ? $fecha->campos->nombre : 'No hay cancha asignada' }}
+                                    {{ ($fecha->campo_id) ? $fecha->campos->nombre : 'Sin asignar' }}
                                 </span>
                             </td>
 
-                            <td class="td-fixture">
+                            <td class="td-fixture text-center">
                                 <span id="hora_{{ $fecha->id }}">
-                                    {{ ($fecha->partido_hora) ? $fecha->partido_hora : 'No hay hora registrada' }}
+                                    {{ ($fecha->partido_hora) ? $fecha->partido_hora : '-' }}
                                 </span>
                             </td>
 
-                            <td class="td-fixture">
+                            <td class="td-fixture text-center">
                                 <span id="status_{{ $fecha->id }}" class="text-{{ ($fecha->status=='pendiente') ? 'danger' : 'success' }}">
                                     {{ $fecha->status }}
                                 </span>
                             </td>
 
-                            <td class="td-fixture">
+                            <td class="td-fixture text-center">
                                 <div class="row">
                                     <div class="col-4 text-right">
                                         {{ $fecha->locales->nombre }}
@@ -87,9 +87,9 @@
                                         {{ $fecha->visitantes->nombre }}
                                     </div>
                                 </div>
-                            </td class="td-fixture">
+                            </td>
 
-                            <td class="td-fixture">
+                            <td class="td-fixture text-center">
                                 <div class="btn-group">
                                     <a href="javascript:registrarFixture('{{ $fecha->id }}')" class="btn btn-danger w-100">
                                         <i class="fa fa-edit mr-2"></i>

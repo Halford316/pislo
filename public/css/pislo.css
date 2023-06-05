@@ -1,3 +1,25 @@
+/* Contenido */
+/*.content-wrapper {
+    background-color: #161317;
+}*/
+
+/* bgcolor logo */
+.layout-navbar-fixed .wrapper .sidebar-dark-danger .brand-link:not([class*="navbar"]) {
+    background-color: #211D25;
+    color: #A79BB3;
+}
+
+/* bgcolor sidebar menu */
+/* .os-content {
+    //background-color: #211D25;
+} */
+
+/* bgcolor Navbar */
+/*.navbar-white {
+    background-color: #161317;
+    color: #A79BB3;
+}*/
+
 .box-fecha
 {
     width: 100%;
@@ -61,4 +83,14 @@
     color: #fff;
     background-color: #495057;
     border-color: #495057;
+
+}
+
+.page-link {
+    color: #495057;
+}
+
+.pagination
+{
+    font-size: 13px;
 }
