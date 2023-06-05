@@ -80,7 +80,8 @@ function getJugadorEstados()
     $array = array(
         'activo' => 'Activo',
         'suplente' => 'Suplente',
-        'expulsado' => 'Expulsado'
+        'expulsado' => 'Expulsado',
+        'inactivo' => 'Inactivo (fuera del torneo)'
     );
 
     return $array;

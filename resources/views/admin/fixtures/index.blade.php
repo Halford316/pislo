@@ -41,6 +41,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/pislo.css') }}">
+    <link rel="stylesheet" href="{{ asset('pislo-assets/icon_font/style.css') }}">
 @stop
 
 @section('js')

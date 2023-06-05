@@ -30,9 +30,10 @@ class TablaPosicionController extends Controller
                     'lost' => 0,
                     'favor' => 0,
                     'against' => 0,
+                    'team' => '',
                     'diff' => 0,
                     'points' => 0,
-                    'team' => ''
+
                 ];
             }
 

@@ -10,6 +10,7 @@ use App\Models\Fixture;
 use Jenssegers\Date\Date;
 use App\Models\Arbitro;
 use App\Models\Campo;
+use App\Models\Expulsion;
 use App\Models\TorneoCampo;
 use App\Models\Jugador;
 use Illuminate\Support\Facades\Auth;
@@ -265,11 +266,40 @@ class FixtureController extends Controller
             $ficha->equipo_2 => $ficha->visitantes->nombre,
         );
 
+        $equipo_1 = $ficha->equipo_1;
+        $expulsados_local = Expulsion::whereHas('jugadores',
+                                function($query) use ($equipo_1){
+                                    $query->where('equipo_id', $equipo_1);
+                                })->get();
+
+        $equipo_2 = $ficha->equipo_2;
+        $expulsados_visitante = Expulsion::whereHas('jugadores',
+                                function($query) use ($equipo_2){
+                                    $query->where('equipo_id', $equipo_2);
+                                })->get();
+
+        $jugadores_local = Jugador::where('equipo_id', $equipo_1)->get();
+        $jugadores_visitante = Jugador::where('equipo_id', $equipo_2)->get();
+
+        /*foreach($jugadores_visitante as $jugador)
+        {
+            //$nro_expulsiones_visitante = Expulsion::where('jugador_id', $jugador->id)->count();
+            $fecha = $jugador->fixtures;
+
+            dd($fecha);
+        }*/
+
+
+
+
+
         return response()->json([
             'ficha' => $ficha->load('locales')->load('visitantes'),
             'campos' => $campos->load('campos'),
             'arbitros' => $arbitros,
-            'equipos' => $equipos
+            'equipos' => $equipos,
+            'expulsados_local' => $expulsados_local->load('jugadores')->load('fixtures'),
+            'expulsados_visitante' => $expulsados_visitante->load('jugadores')->load('fixtures'),
         ]);
     }
 
@@ -286,7 +316,34 @@ class FixtureController extends Controller
     {
         $data = request()->all();
 
+        $fixture_id = $data['mdl_ue_ficha_id'];
+
         $ficha =  Fixture::find($data['mdl_ue_ficha_id']);
+
+        $equipo_1 = $ficha->equipo_1;
+        $equipo_2 = $ficha->equipo_2;
+        $expulsados_local = Expulsion::whereHas('jugadores',
+                                function($query) use ($equipo_1){
+                                    $query->where('equipo_id', $equipo_1);
+                                })->get();
+
+        $expulsados_visitante = Expulsion::whereHas('jugadores',
+                                function($query) use ($equipo_2){
+                                    $query->where('equipo_id', $equipo_2);
+                                })->get();
+
+        $expulsados = Expulsion::where('fixture_id', $fixture_id)->count();
+
+        if ($expulsados == 0) {
+            foreach ($expulsados_visitante as $visitante) {
+
+                $jugador = Jugador::find($visitante->jugador_id);
+                $jugador->status = 'activo';
+                $jugador->save();
+            }
+        }
+
+
 
         $ficha->partido_fecha = $data['mdl_ue_partido_fecha'];
         $ficha->partido_hora = $data['mdl_ue_partido_hora'];
