@@ -9,7 +9,7 @@
 @section('content')
 
 <div class="content p-4">
-    <form action="" id="frmTorneo" method="POST" autocomplete="on">
+    <form action="" id="frmTorneo" method="POST" autocomplete="off">
         {{ csrf_field() }}
         <br>
 
@@ -110,12 +110,7 @@
 
                         <div class="col-sm-4">
                             <label for="hora_inicio">Hora de inicio</label>
-                            <select name="hora_inicio" id="hora_inicio" class="form-control">
-                                <option value="">-- Seleccione --</option>
-                                @foreach ($horarios as $llave=>$valor)
-                                <option value="{{ $llave }}">{{ $valor }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="hora_inicio" id="hora_inicio" class="form-control" placeholder="Hora 00:00" maxlength="5" required />
                         </div>
                     </div>
                 </div>
@@ -202,7 +197,10 @@
 <script>
     var flagUrl = '{{ URL::asset('') }}';
 
+
     $(document).ready(function() {
+
+        $('#hora_inicio').inputmask('99:99');
 
         /* Cargando los campos */
         $('#tblCampos').DataTable( {

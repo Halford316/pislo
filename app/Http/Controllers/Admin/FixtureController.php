@@ -130,19 +130,34 @@ class FixtureController extends Controller
 
                 $ronda = ($i+1);
 
+                $partido_nro = 1;
                 foreach ($rounds[$i] as $round) {
 
                     $equipo = explode(' vs ', $round);
                     $local = $equipo[0];
                     $visitante = $equipo[1];
 
+                    $total_minutos = intval($torneo->duracion + $torneo->descanso);
+
+                    if ($partido_nro == 1) {
+                        $partido_hora = $torneo->hora_inicio;
+                    }else {
+
+                        $hora_inicio = Fixture::where('partido_nro', ($partido_nro-1))->first();
+                        $partido_hora = $this->sumarMinutos($hora_inicio->partido_hora, $total_minutos);
+                    }
+
                     /** Store fixture */
                     Fixture::create([
                         'torneo_id' => $ficha,
                         'equipo_1' => $local,
                         'equipo_2' => $visitante,
-                        'fecha_nro' => $ronda
+                        'fecha_nro' => $ronda,
+                        'partido_nro' => $partido_nro,
+                        'partido_hora' => $partido_hora,
                     ]);
+
+                    $partido_nro++;
 
                 }
             }
@@ -183,9 +198,52 @@ class FixtureController extends Controller
                 print "<br />";
             }*/
 
+            /** Habilitando fixture a torneo */
+            $torneo->fixture = 1;
+            $torneo->save();
+
+            if ($torneo) {
+                return response()->json([
+                    'status'=>'fixture-generated'
+                ]);
+            }
         }
 
 
+    }
+
+    function sumarMinutos($hora, $minutos_a_sumar) {
+        // Descomponer la hora en partes: horas y minutos
+        $partes = explode(':', $hora);
+        $horas = (int)$partes[0];
+        $minutos = (int)$partes[1];
+
+        // Sumar los minutos
+        $nuevos_minutos = $minutos + $minutos_a_sumar;
+
+        // Calcular el exceso de minutos
+        $exceso_horas = floor($nuevos_minutos / 60);
+        $nuevos_minutos %= 60;
+
+        // Sumar las horas y el exceso de horas
+        $nuevas_horas = $horas + $exceso_horas;
+
+        // Asegurarse de que las horas y los minutos tienen dos dígitos
+        $nuevas_horas = str_pad($nuevas_horas, 2, '0', STR_PAD_LEFT);
+        $nuevos_minutos = str_pad($nuevos_minutos, 2, '0', STR_PAD_LEFT);
+
+        // Devolver la nueva hora en formato "00:00"
+        return $nuevas_horas . ':' . $nuevos_minutos;
+    }
+
+
+    function convertirMinutosAHoras($minutos) {
+        $horas = floor($minutos / 60);
+        $minutos_restantes = $minutos % 60;
+
+        $hora_formateada = sprintf("%02d:%02d", $horas, $minutos_restantes);
+
+        return $hora_formateada;
     }
 
     public function team_name($num, $names) {

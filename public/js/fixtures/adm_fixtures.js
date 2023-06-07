@@ -64,8 +64,15 @@ function generarFixture(id)
 
     .done(function(data)
     {
+        if(data.status=='fixture-generated') {
 
-        //window.location.href= 'fixture-generado';
+            Swal.fire(
+                'Fixture generado!',
+                'Se ha generado correctamente el fixture, haga click en el botón "Administrar" para más detalle de los encuentros.',
+                'success'
+            )
+            $('#tblFixtures').DataTable().ajax.reload();
+        }
     })
 
     .fail(function(jqXHR, ajaxOptions, thrownError)
@@ -73,7 +80,6 @@ function generarFixture(id)
         console.log(jqXHR.statusText);
     });
 
-    //$('#mdlFixture').modal('show');
 }
 
 /** Administrar fixture */
