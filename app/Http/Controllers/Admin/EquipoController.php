@@ -33,7 +33,7 @@ class EquipoController extends Controller
             $id = $ficha->id;
 
             $muestra_foto = Storage::url('equipo_fotos/'.$ficha->foto);
-            $nro_jugadores = $this->verTotalJugadoresXEquipo($id);
+            $nro_jugadores = verTotalJugadoresXEquipo($id);
 
             $json_response[] = array(
                 "id" => $id,
@@ -226,12 +226,5 @@ class EquipoController extends Controller
 
     }
 
-    /** Ver total de jugador por equipo */
 
-    public function verTotalJugadoresXEquipo($id)
-    {
-        $nro_jugadores = Jugador::where('equipo_id', $id)->count();
-
-        return $nro_jugadores;
-    }
 }

@@ -89,7 +89,7 @@ function administrarFixture(id)
 
 }
 
-/** Mostrando modal de encuentro para registrar goles, arbitros, expulsiones */
+/** Mostrando modal de encuentro para registrar goles, arbitros, jueces y expulsiones */
 function registrarFixture(id)
 {
     $.ajaxSetup({
@@ -160,6 +160,7 @@ function registrarFixture(id)
         $('#mdl_ue_partido_fecha').val(data.ficha.partido_fecha);
         $('#mdl_ue_status').val(data.ficha.status);
 
+        /** Pintando campos */
         if(data.campos) {
             $('#mdl_ue_campo').empty();
             $('#mdl_ue_campo').focus;
@@ -174,6 +175,7 @@ function registrarFixture(id)
             $('#mdl_ue_arbitro').empty();
         }
 
+        /** Pintando arbitros */
         if(data.arbitros) {
             $('#mdl_ue_arbitro').empty();
             $('#mdl_ue_arbitro').focus;
@@ -189,6 +191,36 @@ function registrarFixture(id)
             $('#mdl_ue_arbitro').empty();
         }
 
+        /** Pintando los jueces */
+        if(data.jueces) {
+            /** Juez de linea 1 */
+            $('#mdl_ue_juez_1').empty();
+            $('#mdl_ue_juez_1').focus;
+            $('#mdl_ue_juez_1').append('<option value="">-- Seleccione juez de línea --</option>');
+
+            $.each(data.jueces, function(key, value) {
+                var sel = (data.ficha.juez_linea_1 === value.id) ? 'selected': '';
+                var juez_1_nombre = value.nombres+' '+value.ape_paterno+' '+value.ape_materno;
+                $('select[name="mdl_ue_juez_1"]').append('<option value="'+value.id+'" '+sel+'>'+juez_1_nombre+'</option>');
+            });
+
+            /** Juez de linea 2 */
+            $('#mdl_ue_juez_2').empty();
+            $('#mdl_ue_juez_2').focus;
+            $('#mdl_ue_juez_2').append('<option value="">-- Seleccione juez de línea --</option>');
+
+            $.each(data.jueces, function(key, value) {
+                var sel = (data.ficha.juez_linea_2 === value.id) ? 'selected': '';
+                var juez_2_nombre = value.nombres+' '+value.ape_paterno+' '+value.ape_materno;
+                $('select[name="mdl_ue_juez_2"]').append('<option value="'+value.id+'" '+sel+'>'+juez_2_nombre+'</option>');
+            });
+
+        }else {
+            $('#mdl_ue_juez_1').empty();
+            $('#mdl_ue_juez_2').empty();
+        }
+
+        /** Pintando equipos */
         if(data.equipos) {
             $('#mdl_ue_equipo').empty();
             $('#mdl_ue_equipo').focus;

@@ -1,36 +1,33 @@
 @extends('adminlte::page')
 
-@section('title', 'Torneos')
+@section('title', 'Jueces de línea')
 
 @section('content_header')
-<div class="p-4">
     <h1 class="float-left text-danger">
-        Lista de torneos
+        Jueces de línea
     </h1>
 
     <div class="float-right pb-5">
-        <a href="{{ route('torneos.create') }}" class="btn btn-danger">
+        <a href="#" class="btn btn-danger" onclick="nuevoJuez()">
             <i class="fa fa-plus mr-1" aria-hidden="true"></i>
-            Nuevo torneo
+            Nuevo juez de línea
         </a>
     </div>
-</div>
 @stop
 
 @section('content')
 
-<div class="table-responsive pl-4 pr-4">
-    <table class="table table-hover w-100 text-sm" id="tblTorneos">
+<div class="table-responsive">
+    <table class="table table-striped table-hover w-100 text-sm" id="tblJueces">
         <thead>
-            <tr class="bg-gray-dark">
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>ESTADO</th>
-                <th>EQUIPOS</th>
-                <th>EQUIPOS REGISTRADOS</th>
-                <th>USUARIO</th>
-                <th>FECHA REG</th>
-                <th>ACCIONES</th>
+            <tr class="text-center bg-dark">
+                <td class="text-white">ID</td>
+                <td class="text-white">Foto</td>
+                <td class="text-white">Nombre</td>
+                <td class="text-white">Teléfono</td>
+                <td class="text-white">Fecha Reg</td>
+                <td class="text-white">Fecha Mod.</td>
+                <td class="text-white">Acciones</td>
             </tr>
         </thead>
 
@@ -43,25 +40,25 @@
     <div id="orderInfo"></div>
 </div>
 
-@include('admin.torneos.mdl_equipos')
+@include('admin.jueces.mdl_jueces')
 
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/pislo.css') }}">
-    <link rel="stylesheet" href="{{ asset('pislo-assets/icon_font/style.css') }}">
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')
-    <script src="{{ asset('js/torneos/torneos.js') }}" language="JavaScript"></script>
+    <script src="{{ asset('js/valida.js') }}" language="JavaScript"></script>
+    <script src="{{ asset('js/jueces/adm_jueces.js') }}" language="JavaScript"></script>
     <script>
 
     var flagUrl = '{{ URL::asset('') }}';
 
     $(document).ready(function() {
 
-        /* Cargando los torneos  */
-        var table = $('#tblTorneos').DataTable( {
+        /* Cargando los jueces  */
+        var table = $('#tblJueces').DataTable( {
             "responsive": true,
             bInfo: true,
             bSort: true,
@@ -69,42 +66,34 @@
             "processing": true,
             "searching" : true,
             "paging" : true,
-            "iDisplayLength": 2,
+            "iDisplayLength": 10,
             "info": false,
             ajax: {
-                    "url" : flagUrl+"admin/torneos/datatable",
-                    "type" : "POST",
+                    "url" : flagUrl+"admin/jueces/datatable",
+                    "type" : "GET",
                     "data" : {'_token' : '{{ csrf_token() }}'}
                 },
+            "columnDefs": [
+                {
+                    className: "text-center", "targets": [0,1,2,3,4,5,6]
+                }
+            ],
             "aaSorting": [[ 6, "desc" ]],
             "aoColumnDefs": [
-                { className: "text-center", "targets": [2,3,4,5,6,7] },
-                { 'bSortable': false, 'aTargets': [0,1,2,3,4,5,6,7] }
+                { 'bSortable': false, 'aTargets': [0,1,2,3,4,5,6] }
             ],
 
             "columns" : [
                 { data: 'id' },
+                { data: 'foto' },
                 { data: 'nombre' },
-                { data: 'estado' },
-                { data: 'equipos' },
-                { data: 'equipos_reg' },
-                { data: 'usuario' },
+                //{ data: 'edad' },
+                { data: 'telefono' },
                 { data: 'fecha_reg' },
+                { data: 'fecha_mod' },
                 { data: 'acciones' }
             ],
 
-            /*language: {
-                    "sProcessing":     "Procesando...",
-                    "sEmptyTable":     "No tiene registrado ningún alumno de pregrado",
-                    "sLoadingRecords": "Cargando...",
-                    "sSearch":         "Buscar:",
-                    "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                }*/
             language:{
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_  &nbsp; registros",
@@ -131,9 +120,6 @@
             }
 
         } );
-
-
-
 
     } );
 

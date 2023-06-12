@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Fixture;
+use App\Models\Jugador;
 
 function getCampoTipos()
 {
@@ -102,5 +103,14 @@ function getFechas($torneo, $ronda)
     $fechas = Fixture::where('torneo_id', $torneo)->where('fecha_nro', $ronda)->get();
 
     return $fechas;
+}
+
+
+/** Ver total de jugador por equipo */
+function verTotalJugadoresXEquipo($id)
+{
+    $nro_jugadores = Jugador::where('equipo_id', $id)->count();
+
+    return $nro_jugadores;
 }
 ?>

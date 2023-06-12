@@ -100,6 +100,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="mdl_ue_juez_1">
+                                    Asignar juez de línea 1
+                                </label>
+                                <select name="mdl_ue_juez_1" id="mdl_ue_juez_1" class="form-control" required>
+                                    <option value="">-- Seleccione juez --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="mdl_ue_juez_2">
+                                    Asignar juez de línea 2
+                                </label>
+                                <select name="mdl_ue_juez_2" id="mdl_ue_juez_2" class="form-control" required>
+                                    <option value="">-- Seleccione juez --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group pl-4 pr-4 pb-2">

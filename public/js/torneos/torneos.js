@@ -215,3 +215,131 @@ const seleccionar_sponsor = document.getElementById('seleccionarSponsors');
 seleccionar_sponsor.addEventListener('click', () => {
     mostrarElementosSeleccionados2();
 });
+
+/** Ver listado de equipos */
+function verEquipos(id)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: flagUrl+'admin/torneos/show/'+id,
+        dataType : 'json',
+        type: 'GET',
+        cache: false,
+        processData: true,
+
+        beforeSend: function()
+        {
+            //console.log('Mostrando torneo con ID: '+id);
+        }
+    })
+
+    .done(function(data)
+    {
+        $("#tblEquipos").dataTable().fnDestroy();
+
+        /* Cargando Equipos  */
+        $('#tblEquipos').DataTable( {
+            "searching" : false,
+            "paging" : false,
+            "info": false,
+            bSort: false,
+            "ajax": flagUrl+'admin/torneos/datatable/'+id,
+
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [0,1,2,3,4] },
+                { className: "text-center", "targets": [0,1,3,4] }
+            ],
+            "columns" : [
+                { data: 'id' },
+                { data: 'nombre' },
+                { data: 'nro_jugadores' },
+                { data: 'status' },
+                { data: 'fecha_reg' },
+                { data: 'fecha_mod' }
+            ],
+
+            language: {
+                    "sProcessing":     "Procesando...",
+                    "sEmptyTable":     "No tiene ningún equipos registrado en el torneo",
+                    "sLoadingRecords": "Cargando...",
+                }
+
+        } );
+        /** ************************************************************************************ */
+
+    })
+
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        console.log(jqXHR.statusText);
+    });
+
+    $('#mdlEquipos').modal('show');
+}
+
+
+/** Actualizando torneo */
+function ajaxUpdate(form) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var dataString = new FormData( $('#frmEditar')[0] );
+
+    $.ajax({
+        url: flagUrl+'admin/torneos/update-process',
+        dataType : 'json',
+        type: 'POST',
+        data: dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        beforeSend: function()
+        {
+            $("#fa_guardar").hide();
+            $("#fa_spinner").show();
+            $('#btnActualizarTorneo').prop("disabled", true);
+        }
+    })
+
+    .done(function(data)
+    {
+        if(data.status === "updated-torneo") {
+            $("#fa_guardar").show();
+            $("#fa_spinner").hide();
+            $('#btnActualizarTorneo').prop("disabled", false);
+
+            toastr.success('El torneo ha sido actualizado satisfactoriamente', 'Success');
+            toastr.options.timeOut = 3000;
+        }
+    })
+
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        var errors = $.parseJSON(jqXHR.responseText);
+        console.log(errors);
+
+        var errorsHtml = '';
+        $.each(errors['errors'], function (index, value) {
+            errorsHtml += '<li>' + value + '</li>';
+        });
+
+        if(jqXHR.status === 401) {
+            errorsHtml = '<li>Error en la autenticación.</li>';
+        }
+
+        if(jqXHR.status === 500) {
+            errorsHtml = '<li>Hubo un error en el sistema.</li>';
+        }
+
+    });
+
+}

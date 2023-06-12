@@ -337,6 +337,11 @@ return [
             'route'         => 'arbitros.index',
             'icon'        => 'fa fa-fw fa-user mr-2',
         ],
+        [
+            'text'        => 'Jueces de línea',
+            'route'         => 'jueces.index',
+            'icon'        => 'fa fa-fw fa-user mr-2',
+        ],
 
         ['header' => 'OPERACIONES'],
 
