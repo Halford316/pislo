@@ -14,6 +14,7 @@ use App\Models\Expulsion;
 use App\Models\TorneoCampo;
 use App\Models\Jugador;
 use Illuminate\Support\Facades\Auth;
+use App\Models\JuezLinea;
 
 class FixtureController extends Controller
 {
@@ -316,6 +317,7 @@ class FixtureController extends Controller
     public function showEncuentro(Fixture $ficha)
     {
         $arbitros = Arbitro::where('activo', 1)->get();
+        $jueces = JuezLinea::where('activo', 1)->get();
         $campos = TorneoCampo::where('torneo_id', $ficha->torneo_id)->get();
         $equipos = [];
 
@@ -339,22 +341,11 @@ class FixtureController extends Controller
         $jugadores_local = Jugador::where('equipo_id', $equipo_1)->get();
         $jugadores_visitante = Jugador::where('equipo_id', $equipo_2)->get();
 
-        /*foreach($jugadores_visitante as $jugador)
-        {
-            //$nro_expulsiones_visitante = Expulsion::where('jugador_id', $jugador->id)->count();
-            $fecha = $jugador->fixtures;
-
-            dd($fecha);
-        }*/
-
-
-
-
-
         return response()->json([
             'ficha' => $ficha->load('locales')->load('visitantes'),
             'campos' => $campos->load('campos'),
             'arbitros' => $arbitros,
+            'jueces' => $jueces,
             'equipos' => $equipos,
             'expulsados_local' => $expulsados_local->load('jugadores')->load('fixtures'),
             'expulsados_visitante' => $expulsados_visitante->load('jugadores')->load('fixtures'),
@@ -407,6 +398,8 @@ class FixtureController extends Controller
         $ficha->partido_hora = $data['mdl_ue_partido_hora'];
         $ficha->campo_id = $data['mdl_ue_campo'];
         $ficha->arbitro_id = $data['mdl_ue_arbitro'];
+        $ficha->juez_linea_1 = $data['mdl_ue_juez_1'];
+        $ficha->juez_linea_2 = $data['mdl_ue_juez_2'];
         $ficha->equipo_1_goles = $data['mdl_equipo_1_goles'];
         $ficha->equipo_2_goles = $data['mdl_equipo_2_goles'];
         $ficha->status = $data['mdl_ue_status'];

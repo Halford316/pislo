@@ -8,6 +8,9 @@ use App\Models\Torneo;
 use App\Models\TorneoCampo;
 use App\Models\TorneoSponsor;
 use Jenssegers\Date\Date;
+use App\Models\EquipoPago;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Routing\RouteBinding;
 
 class TorneoController extends Controller
 {
@@ -29,23 +32,24 @@ class TorneoController extends Controller
             $id = $ficha->id;
 
             $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-1">'.strtoupper($ficha->status).'</span>';
+            $muestra_equipos = '<a href="javascript:" onclick="verEquipos('.$id.');" class="btn btn-secondary w-75">Ver lista</a>';
 
             $json_response[] = array(
                 "id" => $id,
                 "nombre" => $ficha->nombre,
                 "estado" => $muestra_status,
                 "equipos" => $ficha->nro_equipos,
-                "equipos_reg" => '',
+                "equipos_reg" => $muestra_equipos,
                 "usuario" => ($ficha->user_id) ? $ficha->usuarios->name : '',
                 "fecha_reg" => Date::parse($ficha->created_at)->format('d/m/Y'),
                 "acciones" => '
 
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="editarIdioma('.$id.')" title="Editar">
+                    <a href="'.route('torneos.edit', $id).'" class="btn" onclick="editarTorneo('.$id.')" title="Editar">
                         <i class="fa fa-edit"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn" onclick="eliminarIdioma('.$id.')" title="Eliminar">
+                    <button type="button" class="btn" onclick="eliminarTorneo('.$id.')" title="Eliminar">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>
@@ -110,6 +114,74 @@ class TorneoController extends Controller
             }
         }else {
             return response()->json(['status'=>'no-hay-campos']);
+        }
+
+    }
+
+    public function show(Torneo $ficha)
+    {
+        return response()->json([
+            'ficha' => $ficha
+        ]);
+    }
+
+
+    public function listEquipos($id)
+    {
+        $fichas = EquipoPago::where('torneo_id', $id)->orderBy('id', 'desc')->get();
+
+        $json_response = [];
+
+        foreach($fichas as $ficha) {
+            $id = $ficha->id;
+            $nro_jugadores = verTotalJugadoresXEquipo($ficha->equipos->id);
+
+            $json_response[] = array(
+                "id" => $id,
+                "nombre" => $ficha->equipos->nombre,
+                "nro_jugadores" => $nro_jugadores,
+                "status" => $ficha->status,
+                "fecha_reg" => Date::parse($ficha->created_at)->format('d/m/Y'),
+                "fecha_mod" => Date::parse($ficha->updated_at)->format('d/m/Y')
+            );
+        }
+
+        return response()->json([
+            'data' =>  $json_response
+        ]);
+
+    }
+
+    public function edit($id)
+    {
+        $ficha = Torneo::find($id);
+        $horarios = getTorneoHorarios();
+        $campo_tipos = getCampoTipos();
+
+        return view('admin.torneos.edit', compact('ficha', 'horarios', 'campo_tipos'));
+
+    }
+
+    public function update(Request $request)
+    {
+        $data = request()->all();
+
+        $ficha =  Torneo::find($data['torneo_id']);
+
+        $ficha->nombre = $data['nombre'];
+        $ficha->fecha_inicio = $data['fecha_inicio'];
+        $ficha->premio = $data['premio'];
+        $ficha->nro_equipos = $data['nro_equipos'];
+        $ficha->precio = $data['precio'];
+        $ficha->direccion = $data['direccion'];
+        $ficha->lugar = $data['lugar'];
+        $ficha->duracion = $data['duracion'];
+        $ficha->descanso = $data['descanso'];
+        $ficha->hora_inicio = $data['hora_inicio'];
+        $ficha->save();
+
+        if ($ficha) {
+            return response()->json(['status'=>'updated-torneo']);
         }
 
     }

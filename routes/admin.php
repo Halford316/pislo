@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ArbitroController;
 use App\Http\Controllers\Admin\FixtureController;
 use App\Http\Controllers\Admin\ExpulsionController;
 use App\Http\Controllers\Admin\TablaPosicionController;
+use App\Http\Controllers\Admin\JuezLineaController;
 
 Route::get('', [HomeController::class, 'index'])->name('home');
 
@@ -21,6 +22,10 @@ Route::prefix('torneos')->group(function () {
     Route::post('/datatable', [TorneoController::class, 'datatable']);
     Route::get('/create', [TorneoController::class, 'create'])->name('torneos.create');
     Route::post('/store-process', [TorneoController::class, 'store']);
+    Route::get('/show/{ficha}', [TorneoController::class, 'show']);
+    Route::get('/datatable/{ficha}', [TorneoController::class, 'listEquipos']);
+    Route::get('/edit/{ficha}', [TorneoController::class, 'edit'])->name('torneos.edit');
+    Route::put('/update-process', [TorneoController::class, 'update']);
 
     /* Campos */
     Route::prefix('campos')->group(function () {
@@ -87,6 +92,17 @@ Route::prefix('arbitros')->group(function () {
     Route::get('/show/{ficha}', [ArbitroController::class, 'show']);
     Route::post('/store-process', [ArbitroController::class, 'store']);
     Route::put('/update-process', [ArbitroController::class, 'update']);
+
+});
+
+/** Jueces de línea */
+Route::prefix('jueces')->group(function () {
+
+    Route::get('', [JuezLineaController::class, 'index'])->name('jueces.index');
+    Route::get('/datatable', [JuezLineaController::class, 'list']);
+    Route::get('/show/{ficha}', [JuezLineaController::class, 'show']);
+    Route::post('/store-process', [JuezLineaController::class, 'store']);
+    Route::put('/update-process', [JuezLineaController::class, 'update']);
 
 });
 
