@@ -106,9 +106,9 @@ class EquipoController extends Controller
     }
 
     /** Listando pagos registrados */
-    public function listPagos($ficha)
+    public function listPagos($ficha, $torneo)
     {
-        $fichas = EquipoPago::where('equipo_id', $ficha)->orderBy('id', 'desc')->get();
+        $fichas = EquipoPago::where('equipo_id', $ficha)->where('torneo_id', $torneo)->orderBy('id', 'desc')->get();
 
         $json_response = [];
 
@@ -158,11 +158,16 @@ class EquipoController extends Controller
         ]);
     }
 
-    public function showPrecioXTorneo(Torneo $ficha)
+    public function showPrecioXTorneo($equipo, $torneo)
     {
-        $precio = $ficha->precio;
+        //$precio = $ficha->precio;
+        $torneos = Torneo::find($torneo);
+        $ficha = EquipoPago::where('equipo_id', $equipo)->where('torneo_id', $torneo)->orderBy('id', 'DESC')->get();
 
-        return response()->json($precio);
+        return response()->json([
+            'precio' => $torneos->precio,
+            'ficha' => $ficha
+        ]);
     }
 
     /** Guardando pago */
@@ -173,6 +178,11 @@ class EquipoController extends Controller
         $ficha = EquipoPago::create($data);
 
         $ficha->user_id = Auth::user()->id;
+
+        if ($ficha->saldo == 0) {
+            $ficha->status = 'cancelado';
+        }
+
         $ficha->save();
 
         if ($ficha) {

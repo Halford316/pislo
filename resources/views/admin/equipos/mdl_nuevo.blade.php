@@ -36,7 +36,7 @@
                                     <label for="foto_adjunto">
                                         Foto del equipo:
                                     </label>
-                                    <input type="file" class="form-control" id="foto_adjunto" name="foto_adjunto" onchange="return fileValidation(this, 'all')" required>
+                                    <input type="file" class="form-control" id="foto_adjunto" name="foto_adjunto" onchange="return fileValidation(this, 'all')">
                                 </div>
                             </div>
                         </div>

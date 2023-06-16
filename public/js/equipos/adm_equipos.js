@@ -76,8 +76,6 @@ function verPagos(id)
         }
     });
 
-    //var dataString = new FormData(form);
-
     $.ajax({
         url: flagUrl+'admin/equipos/show/'+id,
         dataType : 'json',
@@ -87,47 +85,28 @@ function verPagos(id)
 
         beforeSend: function()
         {
-            console.log('Mostrando equipo con ID: '+id);
+            //console.log('Mostrando equipo con ID: '+id);
         }
     })
 
     .done(function(data)
     {
-        $("#tblPagos").dataTable().fnDestroy();
+        $('#torneo_id').val('');
         $('#equipo_id').val(id);
 
-        /* Cargando pagos  */
-        $('#tblPagos').DataTable( {
-            "searching" : false,
-            "paging" : false,
-            "info": false,
-            bSort: false,
-            "ajax": flagUrl+'admin/equipos/pagos/'+id+'/datatable',
+        $("#registracion").on('change keydown paste input', function() {
+            var num_1 = $("#registracion").val();
+            var num_2 = $("#adelanto").val();
+            resta(num_1, num_2);
+        });
 
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [0,1,2,3,4,5,6,7,8] }
-            ],
-            "columns" : [
-                { data: 'equipo' },
-                { data: 'torneo' },
-                { data: 'pago' },
-                { data: 'adelanto' },
-                { data: 'saldo' },
-                { data: 'status' },
-                { data: 'usuario' },
-                { data: 'fecha_reg' },
-                { data: 'fecha_mod' },
-                { data: 'acciones' },
-            ],
+        $("#adelanto").on('change keydown paste input', function() {
+            var num_1 = $("#registracion").val();
+            var num_2 = $("#adelanto").val();
+            resta(num_1, num_2);
+        });
 
-            language: {
-                    "sProcessing":     "Procesando...",
-                    "sEmptyTable":     "No tiene registrado ningún pago",
-                    "sLoadingRecords": "Cargando...",
-                }
-
-        } );
-        /** ************************************************************************************ */
+        listarPagosxTorneo(id);
 
     })
 
@@ -137,6 +116,45 @@ function verPagos(id)
     });
 
     $('#mdlPagos').modal('show');
+}
+
+/** Listado pagos x torneo */
+function listarPagosxTorneo(equipo_id, torneo_id)
+{
+    $("#tblPagos").dataTable().fnDestroy();
+
+    /* Cargando pagos  */
+    $('#tblPagos').DataTable( {
+        "searching" : false,
+        "paging" : false,
+        "info": false,
+        bSort: false,
+        "ajax": flagUrl+'admin/equipos/pagos/'+equipo_id+'/'+torneo_id+'/datatable',
+
+        "aoColumnDefs": [
+            { 'bSortable': false, 'aTargets': [0,1,2,3,4,5,6,7,8] }
+        ],
+        "columns" : [
+            { data: 'equipo' },
+            { data: 'torneo' },
+            { data: 'pago' },
+            { data: 'adelanto' },
+            { data: 'saldo' },
+            { data: 'status' },
+            { data: 'usuario' },
+            { data: 'fecha_reg' },
+            { data: 'fecha_mod' },
+            { data: 'acciones' },
+        ],
+
+        language: {
+                "sProcessing":     "Procesando...",
+                "sEmptyTable":     "Para ver los pagos hecho por el equipo, seleccione un torneo.",
+                "sLoadingRecords": "Cargando...",
+            }
+
+    } );
+
 }
 
 
@@ -406,20 +424,35 @@ function ajaxUpdatePago(form) {
 /* Pintando precio x torneo */
 $('#torneo_id').on('change', function() {
     var stateID = $(this).val();
+    var equipo_id = $('#equipo_id').val();
+
     if(stateID) {
         $.ajax({
-            url: flagUrl+'admin/equipos/pagos/showPrecioXTorneo/'+stateID,
+            url: flagUrl+'admin/equipos/pagos/showPrecioXTorneo/'+equipo_id+'/'+stateID,
             type: "GET",
             data : {"_token":"{{ csrf_token() }}"},
             dataType: "json",
 
             success:function(data) {
 
+                console.log(data.ficha);
+
                 if(data) {
-                    $('#registracion').val(data);
+                    $('#costo').val(data.precio);
+
+                    if (data.ficha.length) {
+                        $('#registracion').val(data.ficha[0].saldo);
+                        listarPagosxTorneo(equipo_id, stateID);
+
+                    }else {
+                        $('#registracion').val(data.precio);
+                        $('#tblPagos').dataTable().fnClearTable();
+                    }
 
                 }else{
-                    $('#registracion').val('');
+
+                    //$('#registracion').val('');
+
                 }
             }
         });
@@ -432,36 +465,19 @@ $('#torneo_id').on('change', function() {
 /** Eliminado pago */
 function eliminarPago(id) {
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
+    swal.fire({
+        title: '¿Desea eliminar el registro?',
+        //text: "Ud. enviará una constancia adjunto en pdf al correo electrónico del alumno.",
+        icon: "question",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirm) {
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
-        }
-      })
-
-    /*wal.fire({
-        title: '¿Desea eliminar el pago?',
-        text: "El pago registrado será eliminado de forma permanente del sistema.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar!',
-        cancelButtonText: 'No, cancelar!',
-        reverseButtons: true,
+        cancelButtonText: 'Cancelar <i class="fa fa-times ml-1"></i>',
+        confirmButtonColor: '#DA332E',
+        cancelButtonColor: '#312C37',
+        confirmButtonText: 'Confirmar <i class="fa fa-check-circle ml-1"></i>'
     })
-    //.then(function(isConfirm) {
-        .then((result) => {
+    .then((result) => {
         if (result.isConfirmed) {
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -503,11 +519,10 @@ function eliminarPago(id) {
                 console.log(xhr.responseText);
             });
 
-        }else {
-            console.log('no se elimino');
         }
 
-    });*/
+    });
+
 }
 
 
