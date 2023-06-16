@@ -93,6 +93,8 @@ function verPagos(id)
     {
         $('#torneo_id').val('');
         $('#equipo_id').val(id);
+        $('#costo').val('');
+        $('#registracion').val('');
 
         $("#registracion").on('change keydown paste input', function() {
             var num_1 = $("#registracion").val();
