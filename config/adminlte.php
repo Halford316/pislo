@@ -351,7 +351,7 @@ return [
             'icon' => 'fa fa-fw fa-sitemap mr-2',
         ],
         [
-            'text' => 'Reportes',
+            'text' => 'Reportes de pagos',
             'url'  => '#',
             'icon' => 'fa fa-fw fa-file-archive mr-2',
         ],
@@ -497,7 +497,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

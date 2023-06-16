@@ -142,7 +142,7 @@
                                 <label for="foto_jugador">
                                     Foto del jugador:
                                 </label>
-                                <input type="file" class="form-control" id="foto_jugador" name="foto_jugador" onchange="return fileValidation(this, 'img')" required>
+                                <input type="file" class="form-control" id="foto_jugador" name="foto_jugador" onchange="return fileValidation(this, 'img')">
                             </div>
                         </div>
                     </div>

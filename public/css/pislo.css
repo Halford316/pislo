@@ -94,3 +94,7 @@
 {
     font-size: 13px;
 }
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background-color: #DA332E;
+}

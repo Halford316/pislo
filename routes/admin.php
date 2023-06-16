@@ -56,12 +56,12 @@ Route::prefix('equipos')->group(function () {
     Route::get('/show/{ficha}', [EquipoController::class, 'show']);
 
     /** Pagos */
-    Route::get('/pagos/{ficha}/datatable', [EquipoController::class, 'listPagos']);
+    Route::get('/pagos/{ficha}/{torneo}/datatable', [EquipoController::class, 'listPagos']);
     Route::get('/pagos/show/{ficha}', [EquipoController::class, 'showPago']);
     Route::post('/pagos/store-process', [EquipoController::class, 'storePago']);
     Route::put('/pagos/update-process', [EquipoController::class, 'updatePago']);
     Route::post('/pagos/delete/{ficha}', [EquipoController::class, 'destroyPago']);
-    Route::get('/pagos/showPrecioXTorneo/{ficha}', [EquipoController::class, 'showPrecioXTorneo']);
+    Route::get('/pagos/showPrecioXTorneo/{equipo}/{torneo}', [EquipoController::class, 'showPrecioXTorneo']);
 
     Route::prefix('jugadores')->group(function () {
 
