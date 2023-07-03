@@ -34,11 +34,19 @@ class TorneoController extends Controller
             $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-1">'.strtoupper($ficha->status).'</span>';
             $muestra_equipos = '<a href="javascript:" onclick="verEquipos('.$id.');" class="btn btn-secondary w-75">Ver lista</a>';
 
+            $ver_total_cobrado = verTotalCobrado($id);
+            $precio_total = $ficha->precio * $ficha->nro_equipos;
+            $ver_total_x_cobrar = $precio_total - $ver_total_cobrado;
+
+
             $json_response[] = array(
                 "id" => $id,
                 "nombre" => $ficha->nombre,
                 "estado" => $muestra_status,
                 "equipos" => $ficha->nro_equipos,
+                "costo" => $ficha->precio,
+                "txc" => $ver_total_x_cobrar,
+                "tc" => $ver_total_cobrado,
                 "equipos_reg" => $muestra_equipos,
                 "usuario" => ($ficha->user_id) ? $ficha->usuarios->name : '',
                 "fecha_reg" => Date::parse($ficha->created_at)->format('d/m/Y'),

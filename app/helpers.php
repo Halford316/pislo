@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\EquipoPago;
 use App\Models\Fixture;
 use App\Models\Jugador;
 
@@ -113,4 +114,21 @@ function verTotalJugadoresXEquipo($id)
 
     return $nro_jugadores;
 }
+
+/** Ver total saldo x torneo */
+/*function verTotalSaldo($torneo_id)
+{
+    $totalxcobrar = EquipoPago::where('torneo_id', $torneo_id)->get()->sum('saldo');
+
+    return $totalxcobrar;
+}*/
+
+/** Ver total cobrado x torneo */
+function verTotalCobrado($torneo_id)
+{
+    $total_cobrado = EquipoPago::where('torneo_id', $torneo_id)->get()->sum('adelanto');
+
+    return $total_cobrado;
+}
+
 ?>

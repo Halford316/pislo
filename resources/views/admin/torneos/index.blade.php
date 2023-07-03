@@ -27,6 +27,9 @@
                 <th>NOMBRE</th>
                 <th>ESTADO</th>
                 <th>EQUIPOS</th>
+                <th>COSTO</th>
+                <th>TxC</th>
+                <th>TC</th>
                 <th>EQUIPOS REGISTRADOS</th>
                 <th>USUARIO</th>
                 <th>FECHA REG</th>
@@ -87,24 +90,15 @@
                 { data: 'nombre' },
                 { data: 'estado' },
                 { data: 'equipos' },
+                { data: 'costo' },
+                { data: 'txc' },
+                { data: 'tc' },
                 { data: 'equipos_reg' },
                 { data: 'usuario' },
                 { data: 'fecha_reg' },
                 { data: 'acciones' }
             ],
 
-            /*language: {
-                    "sProcessing":     "Procesando...",
-                    "sEmptyTable":     "No tiene registrado ningún alumno de pregrado",
-                    "sLoadingRecords": "Cargando...",
-                    "sSearch":         "Buscar:",
-                    "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                }*/
             language:{
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_  &nbsp; registros",

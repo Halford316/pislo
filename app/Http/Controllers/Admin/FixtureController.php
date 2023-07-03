@@ -35,7 +35,7 @@ class FixtureController extends Controller
         foreach($fichas as $ficha) {
             $id = $ficha->id;
             $torneo_fixture = Fixture::where('torneo_id', $id)->count();
-            $nro_equipos_reg = EquipoPago::where('torneo_id', $id)->count();
+            $nro_equipos_reg = EquipoPago::distinct('equipo_id')->where('torneo_id', $id)->count();
 
             $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-2">'.strtoupper($ficha->status).'</span>';
 
@@ -57,8 +57,6 @@ class FixtureController extends Controller
                                 </button>
                                 ';
             }
-
-
 
             $disabled_table = ($torneo_fixture > 0) ? '' : 'disabled';
 
