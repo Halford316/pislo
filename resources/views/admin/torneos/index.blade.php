@@ -30,6 +30,7 @@
                 <th>COSTO</th>
                 <th>TxC</th>
                 <th>TC</th>
+                <th>TR</th>
                 <th>EQUIPOS REGISTRADOS</th>
                 <th>USUARIO</th>
                 <th>FECHA REG</th>
@@ -93,6 +94,7 @@
                 { data: 'costo' },
                 { data: 'txc' },
                 { data: 'tc' },
+                { data: 'tr' },
                 { data: 'equipos_reg' },
                 { data: 'usuario' },
                 { data: 'fecha_reg' },
