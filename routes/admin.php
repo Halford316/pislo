@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\FixtureController;
 use App\Http\Controllers\Admin\ExpulsionController;
 use App\Http\Controllers\Admin\TablaPosicionController;
 use App\Http\Controllers\Admin\JuezLineaController;
+use App\Http\Controllers\Admin\ReportePagosController;
+
 
 Route::get('', [HomeController::class, 'index'])->name('home');
 
@@ -140,7 +142,13 @@ Route::prefix('fixtures')->group(function () {
         });
     });
 
+});
 
+/** Reportes de pagos */
+Route::prefix('reportes')->group(function () {
+
+    Route::get('/pagos', [ReportePagosController::class, 'index'])->name('reportes.pagos.index');
+    Route::post('/pagos/datatable', [ReportePagosController::class, 'datatable'])->name('reportes.pagos.datatable');
 
 });
 

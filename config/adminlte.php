@@ -347,12 +347,12 @@ return [
 
         [
             'text' => 'Fixtures',
-            'route'         => 'fixtures.index',
+            'route'=> 'fixtures.index',
             'icon' => 'fa fa-fw fa-sitemap mr-2',
         ],
         [
             'text' => 'Reportes de pagos',
-            'url'  => '#',
+            'route'  => 'reportes.pagos.index',
             'icon' => 'fa fa-fw fa-file-archive mr-2',
         ],
         /*[
