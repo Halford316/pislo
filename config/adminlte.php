@@ -310,37 +310,37 @@ return [
         ],
         [
             'text' => 'Inicio',
-            'icon'   => 'fas fa-fw fa-home',
+            'icon'   => 'ico-home fa-lg mr-1',
             'route'  => 'home',
         ],
 
         ['header' => 'CONFIGURACION'],
         [
             'text'        => 'Torneos',
-            'icon'        => 'fa fa-fw fa-trophy mr-2',
+            'icon'        => 'ico-torneo fa-lg mr-1',
             'route'         => 'torneos.index',
             /*'label'       => 4,
             'label_color' => 'success',*/
         ],
         [
             'text'        => 'Equipos',
-            'icon'        => 'fa fa-fw fa-users mr-2',
+            'icon'        => 'ico-equipos fa-lg mr-1',
             'route'         => 'equipos.index',
         ],
         [
             'text'        => 'Jugadores',
-            'icon'        => 'fa fa-fw fa-user-plus mr-2',
+            'icon'        => 'ico-jugadores fa-lg mr-1',
             'route'         => 'jugadores.index',
         ],
         [
             'text'        => 'Arbitros',
             'route'         => 'arbitros.index',
-            'icon'        => 'fa fa-fw fa-user mr-2',
+            'icon'        => 'ico-arbitro fa-lg mr-1',
         ],
         [
             'text'        => 'Jueces de línea',
             'route'         => 'jueces.index',
-            'icon'        => 'fa fa-fw fa-user mr-2',
+            'icon'        => 'ico-arbitros fa-lg mr-1',
         ],
 
         ['header' => 'OPERACIONES'],
@@ -348,12 +348,12 @@ return [
         [
             'text' => 'Fixtures',
             'route'=> 'fixtures.index',
-            'icon' => 'fa fa-fw fa-sitemap mr-2',
+            'icon' => 'ico-fixtures fa-lg mr-1',
         ],
         [
             'text' => 'Reportes de pagos',
             'route'  => 'reportes.pagos.index',
-            'icon' => 'fa fa-fw fa-file-archive mr-2',
+            'icon' => 'ico-reportes fa-lg mr-1',
         ],
         /*[
             'text'    => 'multilevel',
@@ -549,6 +549,26 @@ return [
                     'asset' => true,
                     'location' => 'vendor/inputmask/jquery.inputmask.min.js',
                 ],
+            ],
+        ],
+        'Icons' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'pislo-assets/icon_font/style.css',
+                ]
+            ],
+        ],
+        'Layout' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'css/pislo.css',
+                ]
             ],
         ],
     ],

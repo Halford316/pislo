@@ -6,8 +6,7 @@
 
             <form method="get" id="frmFiltraPor" class="form-inline">
 
-                <div class="float-left w-15">
-                    <label for="equipo">Equipo:</label>
+                <div class="float-left w-15 mr-1">
                     <select name="equipo" id="fil_equipo" class="form-control">
                         <option value="">-- Seleccione equipo --</option>
                         @foreach ($equipos as $equipo)
@@ -16,8 +15,7 @@
                     </select>
                 </div>
 
-                <div class="float-left w-15">
-                    <label for="torneo">Torneo:</label>
+                <div class="float-left w-15 mr-1">
                     <select name="torneo" id="fil_torneo" class="form-control">
                         <option value="">-- Seleccione torneo --</option>
                         @foreach ($torneos as $torneo)
@@ -26,8 +24,7 @@
                     </select>
                 </div>
 
-                <div class="float-left w-15">
-                    <label for="status">Status:</label>
+                <div class="float-left w-15 mr-1">
                     <select name="status" id="fil_status" class="form-control">
                         <option value="">-- Seleccione status --</option>
                         <option value="pendiente">Pendiente</option>
@@ -35,14 +32,14 @@
                     </select>
                 </div>
 
-                <div class="float-left pt-3">
+                <div class="">
                     <button type="button" class="btn btn-danger btn-sm" id="btnFiltrado">
                         <i class="fa fa-filter fa-lg"></i>
                     </button>
 
                     <span>
-                        <a href="javascript:" class="btn btn-sm" id="btnRestablecer">
-                            Restablecer
+                        <a href="javascript:" class="btn btn-outline-secondary btn-sm" id="btnRestablecer">
+                            Restablecer todo
                         </a>
                     </span>
                 </div>

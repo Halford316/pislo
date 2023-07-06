@@ -20,9 +20,9 @@
 @section('content')
 
 <div class="table-responsive pl-4 pr-4">
-    <table class="table table-hover w-100 text-sm" id="tblTorneos">
+    <table class="table w-100 text-sm" id="tblTorneos">
         <thead>
-            <tr class="bg-gray-dark">
+            <tr class="th-datatable">
                 <th>ID</th>
                 <th>NOMBRE</th>
                 <th>ESTADO</th>
@@ -75,6 +75,7 @@
             "paging" : true,
             "iDisplayLength": 2,
             "info": false,
+            oPaginate: false,
             ajax: {
                     "url" : flagUrl+"admin/torneos/datatable",
                     "type" : "POST",
