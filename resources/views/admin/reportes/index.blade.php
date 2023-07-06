@@ -61,7 +61,7 @@
         var table = $('#tblFichas').DataTable( {
             "scrollX": true,
             "autoWidth": true,
-            searching: false,
+            //searching: false,
             iDisplayLength: 10,
             bInfo: true,
             bSort: true,
@@ -73,6 +73,7 @@
             "processing": true,
             "serverSide": true,
             "aaSorting": [[ 8, "desc" ]],
+            "sDom": "rtipl", //ocultar search textbox
             ajax: {
                     "url" : flagUrl+"admin/reportes/pagos/datatable",
                     "type" : "POST",
@@ -123,11 +124,11 @@
         var table = $('#tblFichas').dataTable().api();
 
         $('#btnBusqueda').on('click', function () {
-            table.search($("#search_by").val() + "|" + $("#search_tx").val()).draw();
+            table.search($("#search_tx").val()).draw();
         });
 
         $('#btnFiltrado').on('click', function () {
-            filter_tx = 'filter_by|' + $('#fil_equipo').val() + '|' + $('#fil_torneo').val() + '|' + $('#fil_status').val();
+            filter_tx = $('#fil_equipo').val() + '|' + $('#fil_torneo').val() + '|' + $('#fil_status').val();
             table.search(filter_tx).draw();
         });
 
@@ -137,7 +138,6 @@
 
         $('#btnRestablecer').on('click', function () {
             table.search('').draw();
-            //$('#frmBuscaPor')[0].reset();
             $('#frmFiltraPor')[0].reset();
         });
 

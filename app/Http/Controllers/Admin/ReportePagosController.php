@@ -37,18 +37,12 @@ class ReportePagosController extends Controller
 
         if (trim($search) !== '' ) {
 
-            $fichas = $fichas->whereHas('equipos',
-                                    function($query) use ($search){
-                                        $query->where('nombre', 'LIKE', "%{$search}%");
-                                    });
-
-
             $arr_search = explode("|",$search);
 
             if( isset($arr_search) ) {
-                $equipo = $arr_search[1];
-                $torneo = $arr_search[2];
-                $status = $arr_search[3];
+                $equipo = $arr_search[0];
+                $torneo = $arr_search[1];
+                $status = $arr_search[2];
 
                 if ( $equipo !== '' ) {
                     $fichas = $fichas->where('equipo_id', $equipo);
