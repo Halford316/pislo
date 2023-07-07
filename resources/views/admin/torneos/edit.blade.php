@@ -20,23 +20,37 @@
         <div class="card w-100 pr-4 pl-4 text-sm">
 
             <div class="card-header">
-                <h5 class="float-left text-danger">
-                    Editar torneo
-                </h5>
 
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="d-flex flex-row text-white">
+                            <div class="mr-4">
+                                <i class="ico-copa fa-4x"></i>
+                            </div>
+                            <div class="">
+                                <h4 class="float-left text-danger">
+                                    Editar torneo
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="float-right pb-2">
-                    <a href="{{ route('torneos.index') }}" class="btn btn-outline-secondary">
-                        <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
-                        Regresar
-                    </a>
+                    <div class="col-sm-4">
+                        <div class="text-right">
+                            <a href="{{ route('torneos.index') }}" class="btn btn-outline-secondary mr-2">
+                                <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
+                                Regresar
+                            </a>
 
-                    <button type="submit" class="btn btn-danger" id="btnGuardar">
-                        Actualizar torneo
-                        <i class="fa fa-plus ml-1" id="fa_guardar"></i>
-                        <i class="fa fa-spinner fa-spin ml-1 hide" id="fa_spinner" style="display: none"></i>
-                    </button>
+                            <button type="submit" class="btn btn-danger" id="btnGuardar">
+                                Actualizar torneo
+                                <i class="fa fa-plus ml-1" id="fa_guardar"></i>
+                                <i class="fa fa-spinner fa-spin ml-1 hide" id="fa_spinner" style="display: none"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
             <div class="card-body mt-3">

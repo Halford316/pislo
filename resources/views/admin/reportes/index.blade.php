@@ -3,16 +3,29 @@
 @section('title', 'Reportes de pagos')
 
 @section('content_header')
-<div class="p-2">
-    <h1 class="text-danger">
-        Reporte de pagos
-    </h1>
+<div class="card p-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="d-flex flex-row text-white">
+                    <div class="mr-4">
+                        <i class="ico-reportes fa-4x"></i>
+                    </div>
+                    <div class="">
+                        <h2 class="text-danger">
+                            Reportes de pagos
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @stop
 
 @section('content')
 
-<div class="table-responsive p-2">
+<div class="table-responsive p-4">
     <div class="card shadow">
         @include('admin.includes.inc_busqueda_pagos')
     </div>
@@ -34,12 +47,8 @@
         </thead>
 
         <tbody>
-
         </tbody>
     </table>
-
-    <div id="tableInfo"></div>
-    <div id="orderInfo"></div>
 </div>
 
 
@@ -95,10 +104,10 @@
 
             language:{
                 "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_  &nbsp; registros",
+                "sLengthMenu":     " _MENU_  &nbsp; entradas por página",
                 "sZeroRecords":    "¡No se obtuvieron resultados!",
                 "sEmptyTable":     "¡No se obtuvieron resultados!",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de <span class=\"text-danger\">_TOTAL_</span> registros",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de <span class='text-danger'>_TOTAL_</span> registros",
                 "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                 "sInfoFiltered":   "",
                 "sInfoPostFix":    "",
@@ -109,8 +118,8 @@
                 "oPaginate": {
                     "sFirst":    "Primero",
                     "sLast":     "Último",
-                    "sNext":     "Siguiente &gt;",
-                            "sPrevious": "&lt; Anterior"
+                    "sNext":     "&gt;",
+                    "sPrevious": "&lt;"
                 },
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",

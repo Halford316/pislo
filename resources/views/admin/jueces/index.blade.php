@@ -3,22 +3,39 @@
 @section('title', 'Jueces de línea')
 
 @section('content_header')
-    <h1 class="float-left text-danger">
-        Jueces de línea
-    </h1>
+<div class="card p-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="d-flex flex-row text-white">
+                    <div class="mr-4">
+                        <i class="ico-arbitros fa-4x"></i>
+                    </div>
+                    <div class="">
+                        <h3 class="float-left text-danger">
+                            Jueces de línea
+                        </h3>
+                    </div>
+                </div>
+            </div>
 
-    <div class="float-right pb-5">
-        <a href="#" class="btn btn-danger" onclick="nuevoJuez()">
-            <i class="fa fa-plus mr-1" aria-hidden="true"></i>
-            Nuevo juez de línea
-        </a>
+            <div class="col-sm-4 pt-3">
+                <div class="text-right">
+                    <a href="javascrtip:" class="btn btn-danger" onclick="nuevoJuez()">
+                        <i class="fa fa-plus mr-1" aria-hidden="true"></i>
+                        Nuevo juez de línea
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 @stop
 
 @section('content')
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover w-100 text-sm" id="tblJueces">
+<div class="table-responsive p-4">
+    <table class="table table-hover w-100 text-sm" id="tblJueces">
         <thead>
             <tr class="text-center bg-dark">
                 <td class="text-white">ID</td>
@@ -45,7 +62,6 @@
 @stop
 
 @section('css')
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')
@@ -96,10 +112,10 @@
 
             language:{
                 "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_  &nbsp; registros",
+                "sLengthMenu":     " _MENU_  &nbsp; entradas por página",
                 "sZeroRecords":    "¡No se obtuvieron resultados!",
                 "sEmptyTable":     "¡No se obtuvieron resultados!",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de <span class='text-danger'>_TOTAL_</span> registros",
                 "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                 "sInfoFiltered":   "",
                 "sInfoPostFix":    "",
@@ -110,8 +126,8 @@
                 "oPaginate": {
                     "sFirst":    "Primero",
                     "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
+                    "sNext":     "&gt;",
+                    "sPrevious": "&lt;"
                 },
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",

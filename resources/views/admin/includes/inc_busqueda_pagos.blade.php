@@ -6,7 +6,7 @@
 
             <form method="get" id="frmFiltraPor" class="form-inline">
 
-                <div class="float-left w-15 mr-1">
+                <div class="float-left w-15 mr-2">
                     <select name="equipo" id="fil_equipo" class="form-control">
                         <option value="">-- Seleccione equipo --</option>
                         @foreach ($equipos as $equipo)
@@ -15,7 +15,7 @@
                     </select>
                 </div>
 
-                <div class="float-left w-15 mr-1">
+                <div class="float-left w-15 mr-2">
                     <select name="torneo" id="fil_torneo" class="form-control">
                         <option value="">-- Seleccione torneo --</option>
                         @foreach ($torneos as $torneo)
@@ -24,7 +24,7 @@
                     </select>
                 </div>
 
-                <div class="float-left w-15 mr-1">
+                <div class="float-left w-15 mr-2">
                     <select name="status" id="fil_status" class="form-control">
                         <option value="">-- Seleccione status --</option>
                         <option value="pendiente">Pendiente</option>
