@@ -31,7 +31,7 @@ class TorneoController extends Controller
         foreach($fichas as $ficha) {
             $id = $ficha->id;
 
-            $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-1">'.strtoupper($ficha->status).'</span>';
+            $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-2">'.strtoupper($ficha->status).'</span>';
             $muestra_equipos = '<a href="javascript:" onclick="verEquipos('.$id.');" class="btn btn-secondary w-75">Ver lista</a>';
 
             $ver_total_cobrado = verTotalCobrado($id);
@@ -53,13 +53,13 @@ class TorneoController extends Controller
                 "acciones" => '
 
                 <div class="btn-group">
-                    <a href="'.route('torneos.edit', $id).'" class="btn" onclick="editarTorneo('.$id.')" title="Editar">
-                        <i class="fa fa-edit"></i>
+                    <a href="'.route('torneos.edit', $id).'" onclick="editarTorneo('.$id.')" title="Editar" class="mr-3">
+                        <i class="ico-edicion fa-lg"></i>
                     </a>
 
-                    <button type="button" class="btn" onclick="eliminarTorneo('.$id.')" title="Eliminar">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                    <a href="javascript:" onclick="eliminarTorneo('.$id.')" title="Eliminar">
+                        <i class="ico-eliminar fa-lg"></i>
+                    </a>
                 </div>
                 '
             );

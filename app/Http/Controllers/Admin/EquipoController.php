@@ -52,17 +52,17 @@ class EquipoController extends Controller
                 "acciones" => '
 
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="editarEquipo('.$id.')" title="Editar">
-                        <i class="fa fa-edit"></i>
-                    </button>
+                    <a href="javascript:" onclick="editarEquipo('.$id.')" title="Editar" class="mr-3">
+                        <i class="ico-edicion fa-lg"></i>
+                    </a>
 
-                    <button type="button" class="btn" onclick="verPagos('.$id.')" title="Registrar pago">
+                    <a href="javascript:" onclick="verPagos('.$id.')" title="Registrar pago" class="mr-3">
                         <i class="fa fa-credit-card"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn" onclick="eliminarEquipo('.$id.')" title="Eliminar">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                    <a href="javascript:" onclick="eliminarEquipo('.$id.')" title="Eliminar">
+                        <i class="ico-eliminar fa-lg"></i>
+                    </a>
                 </div>
                 '
             );
