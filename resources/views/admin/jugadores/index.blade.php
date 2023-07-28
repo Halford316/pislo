@@ -21,7 +21,7 @@
 
             <div class="col-sm-4 pt-3">
                 <div class="text-right">
-                    <a href="javascript" class="btn btn-danger" onclick="nuevoJugador()">
+                    <a href="javascript:" class="btn btn-danger" onclick="nuevoJugador()">
                         <i class="fa fa-plus mr-1" aria-hidden="true"></i>
                         Nuevo jugador
                     </a>
