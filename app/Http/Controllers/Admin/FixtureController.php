@@ -85,7 +85,7 @@ class FixtureController extends Controller
 
     public function generarFixture($ficha)
     {
-        $equipos = EquipoPago::where('torneo_id', $ficha)->get();
+        $equipos = EquipoPago::distinct()->select('equipo_id')->where('torneo_id', $ficha)->get();
         $names = $equipos->ToArray();
 
         $torneo = Torneo::find($ficha);
@@ -95,6 +95,8 @@ class FixtureController extends Controller
             //dd($names[0]['equipo_id']);
 
             $teams = count($equipos);
+
+            //dd($teams);
 
             // If odd number of teams add a "ghost".
             $ghost = false;
