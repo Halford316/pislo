@@ -12,7 +12,7 @@ $('#frmNuevoPago').on('submit', function(ev) {
 });
 
 /** Update  */
-$('#frmEditar').on('submit', function(ev){
+$('#frmEditarEquipo').on('submit', function(ev){
     ev.preventDefault();
 
     ajaxUpdate(this);
@@ -540,4 +540,114 @@ function valideKey(evt){
     } else{ // other keys.
         return false;
     }
+}
+
+/** Mostrando modal para editar equipo */
+function editarEquipo(id)
+{
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: flagUrl+'admin/equipos/show/'+id,
+        dataType : 'json',
+        type: 'GET',
+        cache: false,
+        processData: true,
+
+        beforeSend: function()
+        {
+            console.log('Mostrando equipo con ID: '+id);
+        }
+    })
+
+    .done(function(data)
+    {
+        $('#mdl_ue_equipo_id').val(data.ficha.id);
+        $('#mdl_ue_nombre').val(data.ficha.nombre);
+        $('#mdl_uj_foto_jugador').val('');
+
+        var foto = data.ficha.foto;
+
+        if (foto) {
+            document.getElementById('mdl_imagePreview').innerHTML =
+            '<img src="/storage/equipo_fotos/'+foto+'" width="114" height="114" border="1" class="rounded" />';
+        }
+
+
+    })
+
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        console.log(jqXHR.statusText);
+    });
+
+    $('#mdlEditarEquipo').modal('show');
+}
+
+/** Actualizando */
+function ajaxUpdate(form) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var dataString = new FormData( $('#frmEditarEquipo')[0] );
+
+    $.ajax({
+        url: flagUrl+'admin/equipos/update-process',
+        dataType : 'json',
+        type: 'POST',
+        data: dataString,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        beforeSend: function()
+        {
+            $("#fa_ue_guardar").hide();
+            $("#fa_ue_spinner").show();
+            $('#btnActualizarEquipo').prop("disabled", true);
+        }
+    })
+
+    .done(function(data)
+    {
+        if(data.status === "updated-equipo") {
+            $("#fa_ue_guardar").show();
+            $("#fa_ue_spinner").hide();
+            $('#btnActualizarEquipo').prop("disabled", false);
+
+            $('#mdlEditarEquipo').modal('hide');
+            $('#tblEquipos').DataTable().ajax.reload(null, false);
+
+            toastr.success('El equipo ha sido actualizado', 'Success');
+            toastr.options.timeOut = 3000;
+        }
+    })
+
+    .fail(function(jqXHR, ajaxOptions, thrownError)
+    {
+        var errors = $.parseJSON(jqXHR.responseText);
+        console.log(errors);
+
+        var errorsHtml = '';
+        $.each(errors['errors'], function (index, value) {
+            errorsHtml += '<li>' + value + '</li>';
+        });
+
+        if(jqXHR.status === 401) {
+            errorsHtml = '<li>Error en la autenticación.</li>';
+        }
+
+        if(jqXHR.status === 500) {
+            errorsHtml = '<li>Hubo un error en el sistema.</li>';
+        }
+
+    });
+
 }

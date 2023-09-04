@@ -56,6 +56,7 @@ Route::prefix('equipos')->group(function () {
     Route::post('/datatable', [EquipoController::class, 'datatable']);
     Route::post('/store-process', [EquipoController::class, 'store']);
     Route::get('/show/{ficha}', [EquipoController::class, 'show']);
+    Route::put('/update-process', [EquipoController::class, 'update']);
 
     /** Pagos */
     Route::get('/pagos/{ficha}/{torneo}/datatable', [EquipoController::class, 'listPagos']);

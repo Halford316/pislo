@@ -25,13 +25,13 @@ class CampoController extends Controller
                 "tipo" => $ficha->tipo_campo,
                 "acciones" => '
                     <div class="btn-group">
-                        <button type="button" class="btn" onclick="editarCampo('.$id.')" title="Editar">
+                        <a href="javascript:" class="mr-3" onclick="editarCampo('.$id.')" title="Editar">
                             <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
 
-                        <button type="button" class="btn" onclick="eliminarCampo('.$id.')" title="Eliminar">
+                        <a href="javascript:" onclick="eliminarCampo('.$id.')" title="Eliminar">
                             <i class="fa fa-trash"></i>
-                        </button>
+                        </a>
                     </div>
                 '
             );

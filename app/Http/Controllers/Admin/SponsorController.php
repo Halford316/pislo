@@ -24,13 +24,13 @@ class SponsorController extends Controller
                 "descripcion" => $ficha->descripcion,
                 "acciones" => '
                     <div class="btn-group">
-                        <button type="button" class="btn" onclick="editarSponsor('.$id.')" title="Editar">
+                        <a href="javascript:" class="mr-3" onclick="editarSponsor('.$id.')" title="Editar">
                             <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
 
-                        <button type="button" class="btn" onclick="eliminarSponsor('.$id.')" title="Eliminar">
+                        <a href="javascript:" onclick="eliminarSponsor('.$id.')" title="Eliminar">
                             <i class="fa fa-trash"></i>
-                        </button>
+                        </a>
                     </div>
                 '
             );

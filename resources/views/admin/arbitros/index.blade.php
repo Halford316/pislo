@@ -35,7 +35,7 @@
 @section('content')
 
 <div class="table-responsive p-4">
-    <table class="table table-hover w-100 text-sm" id="tblArbitros">
+    <table class="table w-100 text-sm" id="tblArbitros">
         <thead>
             <tr class="text-center bg-dark">
                 <td class="text-white">ID</td>

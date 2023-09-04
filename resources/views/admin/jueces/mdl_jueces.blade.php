@@ -34,7 +34,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="ape_materno">Ape materno:</label>
-                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" required />
+                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -53,7 +53,7 @@
 
                                     <div class="col-sm-6">
                                         <label for="telefono">Teléfono:</label>
-                                        <input type="text" name="telefono" id="telefono" class="form-control" required />
+                                        <input type="text" name="telefono" id="telefono" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-6">
@@ -148,7 +148,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="mdl_uj_ape_materno">Ape materno:</label>
-                                        <input type="text" name="mdl_uj_ape_materno" id="mdl_uj_ape_materno" class="form-control" required />
+                                        <input type="text" name="mdl_uj_ape_materno" id="mdl_uj_ape_materno" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -167,7 +167,7 @@
 
                                     <div class="col-sm-6">
                                         <label for="mdl_uj_telefono">Teléfono:</label>
-                                        <input type="text" name="mdl_uj_telefono" id="mdl_uj_telefono" class="form-control" required />
+                                        <input type="text" name="mdl_uj_telefono" id="mdl_uj_telefono" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-6">
