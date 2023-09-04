@@ -25,7 +25,7 @@
                     </a>
                 </div>
 
-                <table class="table table-hover w-100 small" id="tblJugadores">
+                <table class="table w-100 small" id="tblJugadores">
                     <thead>
                         <tr class="text-center bg-dark">
                             <td class="text-white">ID</td>
@@ -94,7 +94,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="ape_materno">Ape materno:</label>
-                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" required />
+                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -113,7 +113,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="telefono">Teléfono:</label>
-                                        <input type="text" name="telefono" id="telefono" class="form-control" required />
+                                        <input type="text" name="telefono" id="telefono" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -208,7 +208,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="mdl_uj_ape_materno">Ape materno:</label>
-                                        <input type="text" name="mdl_uj_ape_materno" id="mdl_uj_ape_materno" class="form-control" required />
+                                        <input type="text" name="mdl_uj_ape_materno" id="mdl_uj_ape_materno" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -227,7 +227,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="mdl_uj_telefono">Teléfono:</label>
-                                        <input type="text" name="mdl_uj_telefono" id="mdl_uj_telefono" class="form-control" required />
+                                        <input type="text" name="mdl_uj_telefono" id="mdl_uj_telefono" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">

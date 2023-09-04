@@ -30,7 +30,7 @@
         @include('admin.includes.inc_busqueda_pagos')
     </div>
 
-    <table class="table table-hover w-100 text-sm" id="tblFichas">
+    <table class="table w-100 text-sm" id="tblFichas">
         <thead>
             <tr class="bg-gray-dark">
                 <th>ID</th>

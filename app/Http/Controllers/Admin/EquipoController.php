@@ -32,13 +32,19 @@ class EquipoController extends Controller
         foreach($fichas as $ficha) {
             $id = $ficha->id;
 
-            $muestra_foto = Storage::url('equipo_fotos/'.$ficha->foto);
+            if (!empty($ficha->foto)) {
+                $url_foto = Storage::url('equipo_fotos/'.$ficha->foto);
+                $muestra_foto = '<img src="'.$url_foto.'" width="50">';
+            }else {
+                $muestra_foto = '-';
+            }
+
             $nro_jugadores = verTotalJugadoresXEquipo($id);
 
             $json_response[] = array(
                 "id" => $id,
                 "nombre" => $ficha->nombre,
-                "foto" => '<img src="'.$muestra_foto.'" width="50">',
+                "foto" => $muestra_foto,
                 "nro_jugadores" => $nro_jugadores,
                 "jugadores_reg" => '
                         <button type="button" class="btn btn-secondary" onclick="verJugadores('.$id.')" title="Jugadores registrados">
@@ -132,13 +138,13 @@ class EquipoController extends Controller
                 "acciones" => '
 
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="editarPago('.$id.')" title="Editar pago">
+                    <a href="javascript:" class="mr-3" onclick="editarPago('.$id.')" title="Editar pago">
                         <i class="fa fa-edit"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn" onclick="eliminarPago('.$id.')" title="Eliminar pago">
+                    <a href="javascript:" onclick="eliminarPago('.$id.')" title="Eliminar pago">
                         <i class="fa fa-trash"></i>
-                    </button>
+                    </a>
                 </div>
                 '
             );
@@ -236,5 +242,29 @@ class EquipoController extends Controller
 
     }
 
+    /** Actualizando */
+    public function update(Request $request)
+    {
+        $data = request()->all();
+
+        $ficha =  Equipo::find($data['mdl_ue_equipo_id']);
+
+        /* Subiendo foto */
+        if(isset($data["mdl_ue_foto_adjunto"])) {
+            Storage::disk('public')->delete('equipo_fotos/'.$ficha->foto);
+            $data_foto_equipo = SubirArchivo($data["mdl_ue_foto_adjunto"], 'equipo_fotos');
+        }else {
+            $data_foto_equipo = $ficha->foto;
+        }
+
+        $ficha->nombre = $data['mdl_ue_nombre'];
+        $ficha->foto = $data_foto_equipo;
+        $ficha->save();
+
+        if ($ficha) {
+            return response()->json(['status'=>'updated-equipo']);
+        }
+
+    }
 
 }

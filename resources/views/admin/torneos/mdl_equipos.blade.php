@@ -18,7 +18,7 @@
 
             <div class="modal-body">
 
-                <table class="table table-hover w-100 small" id="tblEquipos">
+                <table class="table w-100 small" id="tblEquipos">
                     <thead>
                         <tr class="text-center bg-dark">
                             <td class="text-white">ID</td>

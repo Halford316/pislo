@@ -45,13 +45,13 @@ class JuezLineaController extends Controller
                 "acciones" => '
 
                     <div class="btn-group">
-                        <button type="button" class="btn" onclick="editarJuez('.$id.')" title="Editar juez">
+                        <a href="javascript:" class="mr-3" onclick="editarJuez('.$id.')" title="Editar juez">
                             <i class="fa fa-edit"></i>
-                        </button>
+                        </a>
 
-                        <button type="button" class="btn" onclick="eliminarJuez('.$id.')" title="Eliminar juez">
+                        <a href="javascript:" onclick="eliminarJuez('.$id.')" title="Eliminar juez">
                             <i class="fa fa-trash"></i>
-                        </button>
+                        </a>
                     </div>
                 '
             );

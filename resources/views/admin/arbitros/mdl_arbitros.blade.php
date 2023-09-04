@@ -34,7 +34,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="ape_materno">Ape materno:</label>
-                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" required />
+                                        <input type="text" name="ape_materno" id="ape_materno" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">
@@ -53,7 +53,7 @@
 
                                     <div class="col-sm-4">
                                         <label for="telefono">Teléfono:</label>
-                                        <input type="text" name="telefono" id="telefono" class="form-control" required />
+                                        <input type="text" name="telefono" id="telefono" class="form-control" />
                                     </div>
 
                                     <div class="col-sm-4">

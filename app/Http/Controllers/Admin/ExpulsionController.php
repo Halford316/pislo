@@ -62,9 +62,9 @@ class ExpulsionController extends Controller
                     "jugador" => $jugador_nombre,
                     "fecha_reg" => Date::parse($ficha->created_at)->format('d/m/Y H:m'),
                     "actions" => '
-                        <button type="button" class="btn btn-xs" onclick="eliminar('.$ficha->id.')" title="Eliminar" id="btnEliminar">
+                        <a href="javascript:" onclick="eliminar('.$ficha->id.')" title="Eliminar" id="btnEliminar">
                             <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-                        </button>
+                        </a>
                     '
                 );
             }

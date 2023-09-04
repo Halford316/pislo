@@ -40,7 +40,14 @@ class JugadorController extends Controller
             $status_class = getStatusClass();
 
             $muestra_status = '<span class="badge badge-'.$status_class[$ficha->status].' w-100 p-1">'.strtoupper($ficha->status).'</span>';
-            $muestra_foto = Storage::url('jugador_fotos/'.$ficha->foto);
+
+            if ($ficha->foto) {
+                $url_foto = Storage::url('jugador_fotos/'.$ficha->foto);
+                $muestra_foto = '<img src="'.$url_foto.'" width="50" class="rounded">';
+            }else {
+                $muestra_foto = "-";
+            }
+
 
             /** Calculando la edad */
             $fecha_nac = Carbon::parse($ficha->fecha_nac);
@@ -48,7 +55,7 @@ class JugadorController extends Controller
 
             $json_response[] = array(
                 "id" => $ficha->id,
-                "foto" => '<img src="'.$muestra_foto.'" width="50" class="rounded">',
+                "foto" => $muestra_foto,
                 "nombre" => $ficha->ape_paterno.' '.$ficha->ape_materno.', '.$ficha->nombres,
                 "edad" => $edad,
                 "telefono" => $ficha->telefono,
@@ -58,13 +65,13 @@ class JugadorController extends Controller
                 "acciones" => '
 
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="editarJugador('.$id.')" title="Editar Jugador">
+                    <a href="javascript:" class="mr-3" onclick="editarJugador('.$id.')" title="Editar Jugador">
                         <i class="fa fa-edit"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn" onclick="eliminarJugador('.$id.')" title="Eliminar Jugador">
+                    <a href="javascript:" onclick="eliminarJugador('.$id.')" title="Eliminar Jugador">
                         <i class="fa fa-trash"></i>
-                    </button>
+                    </a>
                 </div>
                 '
             );

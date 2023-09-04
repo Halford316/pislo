@@ -46,13 +46,13 @@ class ArbitroController extends Controller
                 "acciones" => '
 
                 <div class="btn-group">
-                    <button type="button" class="btn" onclick="editarArbitro('.$id.')" title="Editar Arbitro">
+                    <a href="javascript:" class="mr-3" onclick="editarArbitro('.$id.')" title="Editar Arbitro">
                         <i class="fa fa-edit"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="btn" onclick="eliminarArbitro('.$id.')" title="Eliminar Arbitro">
+                    <a href="javascript:" onclick="eliminarArbitro('.$id.')" title="Eliminar Arbitro">
                         <i class="fa fa-trash"></i>
-                    </button>
+                    </a>
                 </div>
                 '
             );
