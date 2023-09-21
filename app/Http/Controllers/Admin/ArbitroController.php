@@ -50,7 +50,7 @@ class ArbitroController extends Controller
                         <i class="fa fa-edit"></i>
                     </a>
 
-                    <a href="javascript:" onclick="eliminarArbitro('.$id.')" title="Eliminar Arbitro">
+                    <a href="javascript:" onclick="eliminar('.$id.')" title="Eliminar Arbitro">
                         <i class="fa fa-trash"></i>
                     </a>
                 </div>
@@ -123,5 +123,23 @@ class ArbitroController extends Controller
         }
 
     }
+
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Arbitro::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
+    }
+
 
 }

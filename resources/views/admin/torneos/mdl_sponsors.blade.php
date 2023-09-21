@@ -22,7 +22,7 @@
                 <p>Seleccione los sponsors para el torneo</p>
 
                 <div class="table-responsive">
-                    <table class="table table-hover w-100" id="tblSponsors">
+                    <table class="table w-100" id="tblSponsors">
                         <thead>
                             <tr class="bg-gray text-white">
                                 <td></td>

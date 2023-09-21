@@ -28,10 +28,6 @@ class CampoController extends Controller
                         <a href="javascript:" class="mr-3" onclick="editarCampo('.$id.')" title="Editar">
                             <i class="fa fa-edit"></i>
                         </a>
-
-                        <a href="javascript:" onclick="eliminarCampo('.$id.')" title="Eliminar">
-                            <i class="fa fa-trash"></i>
-                        </a>
                     </div>
                 '
             );
@@ -80,6 +76,23 @@ class CampoController extends Controller
             return response()->json(['status'=>'updated-campo']);
         }
 
+    }
+
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Campo::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
     }
 
 }

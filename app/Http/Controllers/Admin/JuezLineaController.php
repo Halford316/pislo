@@ -49,7 +49,7 @@ class JuezLineaController extends Controller
                             <i class="fa fa-edit"></i>
                         </a>
 
-                        <a href="javascript:" onclick="eliminarJuez('.$id.')" title="Eliminar juez">
+                        <a href="javascript:" onclick="eliminar('.$id.')" title="Eliminar juez">
                             <i class="fa fa-trash"></i>
                         </a>
                     </div>
@@ -122,5 +122,22 @@ class JuezLineaController extends Controller
         }
 
     }
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = JuezLinea::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
+    }
+
 
 }
