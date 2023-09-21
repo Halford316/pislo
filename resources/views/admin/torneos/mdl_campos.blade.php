@@ -22,7 +22,7 @@
                 <p>Seleccione los campos al torneo</p>
 
                 <div class="table-responsive">
-                    <table class="table table-hover w-100" id="tblCampos">
+                    <table class="table w-100" id="tblCampos">
                         <thead>
                             <tr class="bg-gray text-white">
                                 <td></td>

@@ -57,7 +57,7 @@ class TorneoController extends Controller
                         <i class="ico-edicion fa-lg"></i>
                     </a>
 
-                    <a href="javascript:" onclick="eliminarTorneo('.$id.')" title="Eliminar">
+                    <a href="javascript:" onclick="eliminar('.$id.')" title="Eliminar">
                         <i class="ico-eliminar fa-lg"></i>
                     </a>
                 </div>
@@ -193,5 +193,29 @@ class TorneoController extends Controller
         }
 
     }
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Torneo::findOrFail($id);
+
+        try {
+            $campos = TorneoCampo::where('torneo_id', $id);
+            $sponsors = TorneoSponsor::where('torneo_id', $id);
+
+            $campos->delete();
+            $sponsors->delete();
+
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
+    }
+
+
 
 }

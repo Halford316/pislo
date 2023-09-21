@@ -69,7 +69,7 @@ class JugadorController extends Controller
                         <i class="fa fa-edit"></i>
                     </a>
 
-                    <a href="javascript:" onclick="eliminarJugador('.$id.')" title="Eliminar Jugador">
+                    <a href="javascript:" onclick="eliminar('.$id.')" title="Eliminar Jugador">
                         <i class="fa fa-trash"></i>
                     </a>
                 </div>
@@ -146,6 +146,22 @@ class JugadorController extends Controller
             return response()->json(['status'=>'updated-jugador']);
         }
 
+    }
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Jugador::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
     }
 
 }

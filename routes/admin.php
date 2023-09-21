@@ -28,6 +28,7 @@ Route::prefix('torneos')->group(function () {
     Route::get('/datatable/{ficha}', [TorneoController::class, 'listEquipos']);
     Route::get('/edit/{ficha}', [TorneoController::class, 'edit'])->name('torneos.edit');
     Route::put('/update-process', [TorneoController::class, 'update']);
+    Route::post('/delete/{id}', [TorneoController::class, 'destroy']);
 
     /* Campos */
     Route::prefix('campos')->group(function () {
@@ -36,6 +37,7 @@ Route::prefix('torneos')->group(function () {
         Route::post('/store-process', [CampoController::class, 'store']);
         Route::get('/show/{ficha}', [CampoController::class, 'show']);
         Route::put('/update-process', [CampoController::class, 'update']);
+        Route::post('/delete/{id}', [CampoController::class, 'destroy']);
     });
 
     /** Sponsors */
@@ -44,6 +46,7 @@ Route::prefix('torneos')->group(function () {
         Route::post('/store-process', [SponsorController::class, 'store']);
         Route::get('/show/{ficha}', [SponsorController::class, 'show']);
         Route::put('/update-process', [SponsorController::class, 'update']);
+        Route::post('/delete/{id}', [SponsorController::class, 'destroy']);
     });
 
 
@@ -57,6 +60,7 @@ Route::prefix('equipos')->group(function () {
     Route::post('/store-process', [EquipoController::class, 'store']);
     Route::get('/show/{ficha}', [EquipoController::class, 'show']);
     Route::put('/update-process', [EquipoController::class, 'update']);
+    Route::post('/delete/{id}', [EquipoController::class, 'destroy']);
 
     /** Pagos */
     Route::get('/pagos/{ficha}/{torneo}/datatable', [EquipoController::class, 'listPagos']);
@@ -73,6 +77,7 @@ Route::prefix('equipos')->group(function () {
         Route::get('/show/{ficha}', [JugadorController::class, 'show']);
         Route::post('/store-process', [JugadorController::class, 'store']);
         Route::put('/update-process', [JugadorController::class, 'update']);
+        Route::post('/delete/{id}', [JugadorController::class, 'destroy']);
     });
 });
 
@@ -84,7 +89,7 @@ Route::prefix('jugadores')->group(function () {
     Route::get('/show/{ficha}', [JugadorController::class, 'show']);
     Route::post('/store-process', [JugadorController::class, 'store']);
     Route::put('/update-process', [JugadorController::class, 'update']);
-
+    Route::post('/delete/{id}', [JugadorController::class, 'destroy']);
 });
 
 /** Arbitros */
@@ -95,6 +100,7 @@ Route::prefix('arbitros')->group(function () {
     Route::get('/show/{ficha}', [ArbitroController::class, 'show']);
     Route::post('/store-process', [ArbitroController::class, 'store']);
     Route::put('/update-process', [ArbitroController::class, 'update']);
+    Route::post('/delete/{id}', [ArbitroController::class, 'destroy']);
 
 });
 
@@ -106,6 +112,7 @@ Route::prefix('jueces')->group(function () {
     Route::get('/show/{ficha}', [JuezLineaController::class, 'show']);
     Route::post('/store-process', [JuezLineaController::class, 'store']);
     Route::put('/update-process', [JuezLineaController::class, 'update']);
+    Route::post('/delete/{id}', [JuezLineaController::class, 'destroy']);
 
 });
 

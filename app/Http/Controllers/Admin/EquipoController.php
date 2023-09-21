@@ -267,4 +267,20 @@ class EquipoController extends Controller
 
     }
 
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Equipo::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
+    }
+
 }

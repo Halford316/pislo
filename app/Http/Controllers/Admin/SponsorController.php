@@ -27,10 +27,6 @@ class SponsorController extends Controller
                         <a href="javascript:" class="mr-3" onclick="editarSponsor('.$id.')" title="Editar">
                             <i class="fa fa-edit"></i>
                         </a>
-
-                        <a href="javascript:" onclick="eliminarSponsor('.$id.')" title="Eliminar">
-                            <i class="fa fa-trash"></i>
-                        </a>
                     </div>
                 '
             );
@@ -79,6 +75,22 @@ class SponsorController extends Controller
             return response()->json(['status'=>'updated-sponsor']);
         }
 
+    }
+
+    /** Eliminando */
+    public function destroy($id)
+    {
+        $ficha = Sponsor::findOrFail($id);
+
+        try {
+            if ($ficha->delete()) {
+                return response()->json(['status'=>'deleted']);
+            }
+
+        } catch (\Exception $e) {
+            dd($e);
+            return "Error al eliminar";
+        }
     }
 
 

@@ -343,3 +343,76 @@ function ajaxUpdate(form) {
     });
 
 }
+
+
+/** Eliminado registro */
+function eliminar(id) {
+
+    swal.fire({
+        title: '¿Desea eliminar el registro?',
+        text: "Una vez eliminado no se podrá recuperar la información.",
+        icon: "warning",
+        /*buttons: [
+          'No, cancelar',
+          'Sí, eliminar!'
+        ],
+        dangerMode: true,*/
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+    })
+    //.then(function(isConfirm) {
+    .then((result) => {
+        //if (isConfirm) {
+        if (result.isConfirmed) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: flagUrl+'admin/torneos/delete/'+id,
+                dataType : 'json',
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                beforeSend: function()
+                {
+                    $('#btnSend').prop("disabled", true);
+                    $("#loader").removeClass('hidden');
+                }
+            })
+
+            .done(function(data)
+            {
+                $("#loadStatus").hide();
+                $('#btnSend').prop("disabled", false);
+                $("#loader").addClass('hidden');
+
+                if(data.status === "deleted") {
+                    $('#tblTorneos').DataTable().ajax.reload();
+                }
+
+                swal({
+                    title: 'Registro eliminado!',
+                    text: 'El estudio ha sido eliminado correctamente.',
+                    icon: 'success'
+                }).then(function() {
+
+                });
+            })
+
+            .fail(function(jqXHR, ajaxOptions, thrownError)
+            {
+                console.log(xhr.responseText);
+            });
+        }
+    });
+}
+
+
+
+

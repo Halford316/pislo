@@ -651,3 +651,65 @@ function ajaxUpdate(form) {
     });
 
 }
+
+
+/** Eliminado registro */
+function eliminarEquipo(id) {
+
+    swal.fire({
+        title: '¿Desea eliminar el equipo?',
+        text: "Una vez eliminado no se podrá recuperar la información.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+    })
+    .then((result) => {
+        if (result.isConfirmed) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: flagUrl+'admin/equipos/delete/'+id,
+                dataType : 'json',
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+
+                beforeSend: function()
+                {
+                    $('#btnSend').prop("disabled", true);
+                    $("#loader").removeClass('hidden');
+                }
+            })
+
+            .done(function(data)
+            {
+                $("#loadStatus").hide();
+                $('#btnSend').prop("disabled", false);
+                $("#loader").addClass('hidden');
+
+                if(data.status === "deleted") {
+                    $('#tblEquipos').DataTable().ajax.reload();
+                }
+
+                swal.fire({
+                    title: 'Registro eliminado!',
+                    text: 'El registro ha sido eliminado correctamente.',
+                    icon: 'success'
+                }).then(function() {
+
+                });
+            })
+
+            .fail(function(jqXHR, ajaxOptions, thrownError)
+            {
+                console.log(xhr.responseText);
+            });
+        }
+    });
+}

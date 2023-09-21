@@ -121,7 +121,7 @@
 
                             <div class="card w-100 p-3">
                                 <div class="card-header">
-                                    <h6 class="float-left text-dark">
+                                    <h6 class="float-left text-gray">
                                         Campos
                                     </h6>
 
@@ -148,7 +148,7 @@
 
                             <div class="card w-100 p-3">
                                 <div class="card-header">
-                                    <h6 class="float-left text-dark">
+                                    <h6 class="float-left text-gray">
                                         Sponsors
                                     </h6>
 
